@@ -4,9 +4,9 @@
   "author": "Frank Wall",
   "summary": "Installs and configures the Solr search platform",
   "license": "Apache-2.0",
-  "source": "https://github.com/fraenki/puppet-solr",
-  "project_page": "https://github.com/fraenki/puppet-solr",
-  "issues_url": "https://github.com/fraenki/puppet-solr/issues",
+  "source": "https://github.com/markt-de/puppet-solr",
+  "project_page": "https://github.com/markt-de/puppet-solr",
+  "issues_url": "https://github.com/markt-de/puppet-solr/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
