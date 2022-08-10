@@ -9,12 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Replace camptocamp/systemd with voxpupuli/systemd
 - Update OS support, Puppet versions and module dependencies
+- Migrate tests to GitHub Actions
 
 ### Fixed
 - Fix incompatibility with new systemd module ([#4])
 - Fix puppet-lint offenses
 - Fix rubocop offenses
 - Fix unit tests
+- Fix acceptance tests
 - Update PDK to 2.5.0
 
 ## [2.2.1] - 2020-06-02

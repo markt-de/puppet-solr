@@ -1,6 +1,10 @@
 fixtures:
   repositories:
-    "archive": "https://github.com/voxpupuli/puppet-archive.git"
-    "stdlib": "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    archive: "https://github.com/voxpupuli/puppet-archive.git"
+    facts: "https://github.com/puppetlabs/puppetlabs-facts.git"
+    java: "https://github.com/puppetlabs/puppetlabs-java.git"
+    provision: "https://github.com/puppetlabs/provision.git"
+    puppet_agent: "https://github.com/puppetlabs/puppetlabs-puppet_agent.git"
+    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
   symlinks:
     solr: "#{source_dir}"
