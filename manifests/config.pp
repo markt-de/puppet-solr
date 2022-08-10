@@ -5,8 +5,6 @@
 class solr::config {
   assert_private()
 
-  include systemd::systemctl::daemon_reload
-
   # From version 7.4.0 onwards, SOLR uses log4j2.
   if (versioncmp($solr::version, '7.4.0') < 0) {
     $log4jconfig = 'log4j.properties'
@@ -67,5 +65,4 @@ class solr::config {
     mode    => '0744',
     content => template('solr/solr.init.erb'),
   }
-  ~> Class['systemd::systemctl::daemon_reload']
 }
