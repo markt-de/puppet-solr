@@ -16,7 +16,7 @@ class solr::config {
       owner   => $solr::solr_user,
       group   => $solr::solr_user,
       content => template("solr/${log4jconfig}.erb"),
-      notify  => Service[$solr::service_name]
+      notify  => Service[$solr::service_name],
     }
     file { "${solr::var_dir}/${log4jconfig}":
       ensure  => file,
@@ -24,7 +24,7 @@ class solr::config {
       owner   => $solr::solr_user,
       group   => $solr::solr_user,
       content => template("solr/${log4jconfig}.erb"),
-      notify  => Service[$solr::service_name]
+      notify  => Service[$solr::service_name],
     }
   } else {
     $log4jconfig = 'log4j2.xml'
@@ -34,7 +34,7 @@ class solr::config {
       owner   => $solr::solr_user,
       group   => $solr::solr_user,
       content => template("solr/${log4jconfig}.erb"),
-      notify  => Service[$solr::service_name]
+      notify  => Service[$solr::service_name],
     }
     file { "${solr::var_dir}/${log4jconfig}":
       ensure  => file,
@@ -42,7 +42,7 @@ class solr::config {
       owner   => $solr::solr_user,
       group   => $solr::solr_user,
       content => template("solr/${log4jconfig}.erb"),
-      notify  => Service[$solr::service_name]
+      notify  => Service[$solr::service_name],
     }
   }
 
@@ -60,7 +60,7 @@ class solr::config {
     owner   => $solr::solr_user,
     group   => $solr::solr_user,
     content => epp('solr/solr.in.sh.epp'),
-    notify  => Service[$solr::service_name]
+    notify  => Service[$solr::service_name],
   }
   file { "/etc/init.d/${solr::service_name}":
     ensure  => file,

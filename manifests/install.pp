@@ -9,7 +9,7 @@ class solr::install {
 
   file { $solr::staging_dir:
     ensure  => directory,
-    recurse => true
+    recurse => true,
   }
 
   archive { "${solr::staging_dir}/solr-${solr::version}.tgz":
@@ -27,15 +27,26 @@ class solr::install {
     before     => Exec['run solr install script'],
   }
 
-  if $::solr::upgrade {
+  if $solr::upgrade {
     $upgrade_flag = '-f'
   }
   else {
     $upgrade_flag = ''
   }
 
+  $install_command = join([
+      "${solr::staging_dir}/solr-${solr::version}/bin/install_solr_service.sh",
+      "${solr::staging_dir}/solr-${solr::version}.tgz",
+      "-i ${solr::extract_dir}",
+      "-d ${solr::var_dir}",
+      "-u ${solr::solr_user}",
+      "-s ${solr::service_name}",
+      "-p ${solr::solr_port}",
+      "-n ${upgrade_flag}",
+  ], ' ')
+
   exec { 'run solr install script':
-    command => "${solr::staging_dir}/solr-${solr::version}/bin/install_solr_service.sh ${solr::staging_dir}/solr-${solr::version}.tgz -i ${solr::extract_dir} -d ${solr::var_dir} -u ${solr::solr_user} -s ${solr::service_name} -p ${solr::solr_port} -n ${upgrade_flag}",
+    command => $install_command,
     cwd     => "${solr::staging_dir}/solr-${solr::version}",
     creates => "${solr::extract_dir}/solr-${solr::version}",
     require => Archive["${solr::staging_dir}/solr-${solr::version}.tgz"],

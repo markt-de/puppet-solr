@@ -58,15 +58,15 @@ class solr::customplugins {
       # in order to properly manage custom plugins. Simply overwrite all
       # user-provided values for options that are required.
       $_custom_plugin = deep_merge($_tmp,{
-        ensure       => present,
-        path         => $_path,
-        extract_path => $current_custom_plugins_dir,
-        temp_dir     => $staging_custom_plugins_dir,
-        cleanup      => true,
-        creates      => $_creates,
-        subscribe    => File[$current_custom_plugins_file],
-        notify       => File[$solr::custom_plugins_dir],
-        })
+          ensure       => present,
+          path         => $_path,
+          extract_path => $current_custom_plugins_dir,
+          temp_dir     => $staging_custom_plugins_dir,
+          cleanup      => true,
+          creates      => $_creates,
+          subscribe    => File[$current_custom_plugins_file],
+          notify       => File[$solr::custom_plugins_dir],
+      })
 
       # Extract or copy the custom plugin(s) to our staging directory.
       archive { $_custom_plugin['source']:
@@ -85,7 +85,7 @@ class solr::customplugins {
       recurse => true,
       backup  => false,
       # Solr must be restarted when adding/removing custom plugins.
-      notify  => Service[$solr::service_name]
+      notify  => Service[$solr::service_name],
     }
   }
 }

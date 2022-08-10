@@ -5,7 +5,7 @@
 class solr::service {
   assert_private()
 
-  service { $::solr::service_name:
+  service { $solr::service_name:
     ensure     => running,
     enable     => true,
     hasstatus  => true,

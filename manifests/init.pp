@@ -30,9 +30,9 @@ class solr (
   Optional[Stdlib::Compat::Absolute_path] $java_home,
   Optional[Array] $solr_opts,
 ) {
-  class { '::solr::install': }
-  ->class { '::solr::config': }
-  ->class { '::solr::customplugins': }
-  ->class { '::solr::service': }
-  ->Class['::solr']
+  Class { 'solr::install': }
+  -> Class { 'solr::config': }
+  -> Class { 'solr::customplugins': }
+  -> Class { 'solr::service': }
+  -> Class['solr']
 }
