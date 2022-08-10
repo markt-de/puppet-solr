@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix incompatibility with new systemd module ([#4])
 - Fix puppet-lint offenses
 - Fix rubocop offenses
+- Fix unit tests
 - Update PDK to 2.5.0
 
 ## [2.2.1] - 2020-06-02

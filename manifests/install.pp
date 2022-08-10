@@ -42,7 +42,8 @@ class solr::install {
       "-u ${solr::solr_user}",
       "-s ${solr::service_name}",
       "-p ${solr::solr_port}",
-      "-n ${upgrade_flag}",
+      '-n',
+      $upgrade_flag,
   ], ' ')
 
   exec { 'run solr install script':
