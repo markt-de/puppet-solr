@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Replace camptocamp/systemd with voxpupuli/systemd
+- Update OS support, Puppet versions and module dependencies
 
 ### Fixed
 - Fix incompatibility with new systemd module ([#4])
