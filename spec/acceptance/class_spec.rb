@@ -55,7 +55,11 @@ describe 'solr class' do
     end
 
     describe port(8983) do
-      it { is_expected.to be_listening.with('tcp') }
+      it {
+        # Solr may take a while to start up
+        sleep(30)
+        is_expected.to be_listening.with('tcp')
+      }
     end
   end
 end
