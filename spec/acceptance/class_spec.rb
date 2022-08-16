@@ -61,5 +61,12 @@ describe 'solr class' do
         is_expected.to be_listening.with('tcp')
       }
     end
+
+    it 'debug acceptance test' do
+      run_shell('ss -tnl4') do |r|
+        expect(r.stdout).to match %r{DEBUG}
+        # expect(r.stdout).to match %r{:8983}
+      end
+    end
   end
 end
