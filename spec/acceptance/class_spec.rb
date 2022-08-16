@@ -57,16 +57,11 @@ describe 'solr class' do
     describe port(8983) do
       it {
         # Solr may take a while to start up
-        sleep(30)
-        is_expected.to be_listening.with('tcp')
+        sleep(10)
+        # Depending on the host system, this may be either IPv4-
+        # or IPv6-only, so both needs to work.
+        is_expected.to be_listening
       }
-    end
-
-    it 'debug acceptance test' do
-      run_shell('ss -tnl4') do |r|
-        expect(r.stdout).to match %r{DEBUG}
-        # expect(r.stdout).to match %r{:8983}
-      end
     end
   end
 end
