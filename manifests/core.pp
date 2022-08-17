@@ -3,7 +3,9 @@
 define solr::core (
   String $core_name = $name,
 ) {
-  require solr
+  if ! defined(Class['solr']) {
+    fail('You must include the solr base class before using the solr core defined resource')
+  }
 
   exec { "create ${core_name} core":
     command => "${solr::solr_base}/bin/solr create -c ${core_name}",

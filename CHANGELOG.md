@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Replace camptocamp/systemd with voxpupuli/systemd
 - Module no longer provides a default value for $version
+- The solr::core define no longer includes the solr class
 - Update OS support, Puppet versions and module dependencies
 - Migrate tests to GitHub Actions
 
