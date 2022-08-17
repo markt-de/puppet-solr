@@ -39,7 +39,7 @@ solr::solr_user: 'solr'
 solr::staging_dir: '/opt/staging'
 solr::upgrade: false
 solr::var_dir: '/var/solr'
-solr::version: '8.2.0'
+solr::version: ~
 solr::zk_chroot: ~
 solr::zk_ensemble: ~
 solr::zk_timeout: 15000

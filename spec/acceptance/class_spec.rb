@@ -31,6 +31,7 @@ describe 'solr class' do
       let(:pp) do
         <<-MANIFEST
         class { 'solr':
+          version   => '8.2.0',
           # Use 'localhost' for acceptance tests.
           solr_host => 'localhost',
           # Use Apache Archive, because "old" releases get removed

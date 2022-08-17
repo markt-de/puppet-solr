@@ -42,12 +42,13 @@ It is recommended to use [puppetlabs/java](https://forge.puppet.com/puppetlabs/j
 
 Install Solr with default settings and start the service afterwards:
 
-    class { 'solr': }
+    class { 'solr':
+        version => '8.2.0',
+    }
 
 Furthermore, a number of simple options are available:
 
     class { 'solr':
-        # Change version
         version => '8.2.0',
 
         # Allow automatic upgrades (when changing $version)
@@ -87,6 +88,7 @@ Use cURL to test if Solr is running:
 This module makes it pretty easy to configure Solr Cloud:
 
     class { 'solr':
+        version     => '8.2.0',
         # Setup Solr cloud
         cloud       => true,
         zk_chroot   => 'foo',
@@ -100,6 +102,7 @@ It is recommended to use [deric/puppet-zookeeper](https://forge.puppet.com/deric
 When using Solr Cloud, you may use this module to manage your [custom plugins](https://lucene.apache.org/solr/guide/8_2/adding-custom-plugins-in-solrcloud-mode.html) with Puppet (instead of using the API):
 
     class { 'solr':
+        version     => '8.2.0',
         # Setup Solr cloud
         cloud       => true,
         ...

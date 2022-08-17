@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Replace camptocamp/systemd with voxpupuli/systemd
+- Module no longer provides a default value for $version
 - Update OS support, Puppet versions and module dependencies
 - Migrate tests to GitHub Actions
 
@@ -25,13 +26,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update PDK to 1.18.0
 
 ### Fixed
-- Ensure correct systemd dependency is used (#3)
+- Ensure correct systemd dependency is used ([#3])
 
 ## [2.2.0] - 2019-11-04
 
 ### Changed
-- Make `$zk_chroot` optional to support a ZooKeeper ensemble without a chroot (#2)
-- Change default of `$zk_chroot` from `solrcloud` to `undef` (#2)
+- Make `$zk_chroot` optional to support a ZooKeeper ensemble without a chroot ([#2])
+- Change default of `$zk_chroot` from `solrcloud` to `undef` ([#2])
 
 ## [2.1.0] - 2019-10-24
 
@@ -90,6 +91,7 @@ migrate from spacepants/puppet-solr to this version with only minor modification
 [2.2.0]: https://github.com/markt-de/puppet-solr/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/markt-de/puppet-solr/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/markt-de/puppet-solr/compare/1.0.0...2.0.0
+[#4]: https://github.com/markt-de/puppet-solr/pull/4
 [#3]: https://github.com/markt-de/puppet-solr/pull/3
 [#2]: https://github.com/markt-de/puppet-solr/pull/2
 [#1]: https://github.com/markt-de/puppet-solr/pull/1

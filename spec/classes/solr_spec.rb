@@ -8,8 +8,12 @@ describe 'solr' do
           facts
         end
 
-        context 'solr class without any parameters' do
-          let(:params) { {} }
+        context 'solr class without optional parameters' do
+          let(:params) do
+            {
+              version: '8.2.0',
+            }
+          end
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_class('solr') }
