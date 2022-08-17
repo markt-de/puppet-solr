@@ -1,7 +1,7 @@
+# @summary
+#   Setup and configure Solr.
+#
 # @api private
-#
-# This class manages the service config.
-#
 class solr::config {
   assert_private()
 

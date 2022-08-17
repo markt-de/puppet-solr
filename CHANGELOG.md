@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - The solr::core define no longer includes the solr class
 - Update OS support, Puppet versions and module dependencies
 - Migrate tests to GitHub Actions
+- Convert documentation to Puppet Strings
 
 ### Fixed
 - Fix incompatibility with new systemd module ([#4])

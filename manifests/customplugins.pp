@@ -1,7 +1,7 @@
+# @summary
+#   Manages custom plugins for Solr.
+#
 # @api private
-#
-# This class manages custom plugins for Solr.
-#
 class solr::customplugins {
   assert_private()
 

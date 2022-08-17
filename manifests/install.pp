@@ -1,7 +1,7 @@
+# @summary
+#   Installs and prepares the Solr application.
+#
 # @api private
-#
-# This class installs Solr.
-#
 class solr::install {
   assert_private()
 

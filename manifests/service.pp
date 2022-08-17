@@ -1,7 +1,7 @@
+# @summary
+#   Installs and configures the Solr service.
+#
 # @api private
-#
-# This class ensures that the service is running.
-#
 class solr::service {
   assert_private()
 

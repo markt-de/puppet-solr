@@ -1,4 +1,8 @@
-# This define creates a Solr core or collection.
+# @summary
+#   Creates a Solr core or collection.
+#
+# @param core_name
+#   Sets the name of the core or collection.
 #
 define solr::core (
   String $core_name = $name,
