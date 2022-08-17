@@ -31,12 +31,12 @@ describe 'solr class' do
       let(:pp) do
         <<-MANIFEST
         class { 'solr':
-          version   => '8.2.0',
+          version   => '9.0.0',
           # Use 'localhost' for acceptance tests.
           solr_host => 'localhost',
           # Use Apache Archive, because "old" releases get removed
           # very quickly from the official mirrors.
-          mirror    => 'https://archive.apache.org/dist/lucene/solr',
+          # mirror    => 'https://archive.apache.org/dist/lucene/solr',
         }
         MANIFEST
       end

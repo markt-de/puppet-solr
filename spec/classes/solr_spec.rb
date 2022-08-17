@@ -11,7 +11,7 @@ describe 'solr' do
         context 'solr class without optional parameters' do
           let(:params) do
             {
-              version: '8.2.0',
+              version: '9.0.0',
             }
           end
 
@@ -23,10 +23,10 @@ describe 'solr' do
           it { is_expected.to contain_class('solr::service') }
 
           it {
-            is_expected.to contain_archive('/opt/staging/solr-8.2.0.tgz').with(
+            is_expected.to contain_archive('/opt/staging/solr-9.0.0.tgz').with(
               extract_path: '/opt/staging',
-              source: 'http://www.apache.org/dist/lucene/solr/8.2.0/solr-8.2.0.tgz',
-              creates: '/opt/staging/solr-8.2.0',
+              source: 'https://dlcdn.apache.org/solr/solr/9.0.0/solr-9.0.0.tgz',
+              creates: '/opt/staging/solr-9.0.0',
             )
           }
           it {
@@ -38,10 +38,10 @@ describe 'solr' do
           }
           it {
             is_expected.to contain_exec('run solr install script').with(
-              command: '/opt/staging/solr-8.2.0/bin/install_solr_service.sh /opt/staging/solr-8.2.0.tgz -i /opt -d /var/solr -u solr -s solr -p 8983 -n ',
-              cwd: '/opt/staging/solr-8.2.0',
-              creates: '/opt/solr-8.2.0',
-            ).that_requires('Archive[/opt/staging/solr-8.2.0.tgz]')
+              command: '/opt/staging/solr-9.0.0/bin/install_solr_service.sh /opt/staging/solr-9.0.0.tgz -i /opt -d /var/solr -u solr -s solr -p 8983 -n ',
+              cwd: '/opt/staging/solr-9.0.0',
+              creates: '/opt/solr-9.0.0',
+            ).that_requires('Archive[/opt/staging/solr-9.0.0.tgz]')
           }
           it {
             is_expected.to contain_file('/var/solr').with(
@@ -73,7 +73,7 @@ describe 'solr' do
             is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{SOLR_PORT=8983})
           }
           it {
-            is_expected.to contain_file('/opt/solr-8.2.0/server/resources/log4j2.xml').with(
+            is_expected.to contain_file('/opt/solr-9.0.0/server/resources/log4j2.xml').with(
               ensure: 'file',
               mode: '0644',
               owner: 'solr',
@@ -92,7 +92,7 @@ describe 'solr' do
             is_expected.to contain_file('/etc/init.d/solr').with(
               ensure: 'file',
               mode: '0744',
-            ).with_content(%r{SOLR_ENV=/var/solr/solr.in.sh})
+            ).with_content(%r{SOLR_ENV="/var/solr/solr.in.sh"})
           }
 
           it { is_expected.to contain_service('solr') }

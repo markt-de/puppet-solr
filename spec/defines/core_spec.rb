@@ -4,7 +4,7 @@ describe 'solr::core', type: 'define' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       let :pre_condition do
-        "class {'solr': version => '8.2.0'}"
+        "class {'solr': version => '9.0.0'}"
       end
 
       context "on #{os}" do

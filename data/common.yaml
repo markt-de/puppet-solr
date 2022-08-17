@@ -27,7 +27,7 @@ solr::java_home: ~
 solr::java_mem: '-Xms512m -Xmx512m'
 solr::log_dir: '/var/log/solr'
 solr::manage_custom_plugins: false
-solr::mirror: 'https://dlcdn.apache.org/solr/solr/'
+solr::mirror: 'https://dlcdn.apache.org/solr/solr'
 solr::service_name: 'solr'
 solr::solr_base: "%{lookup('solr::extract_dir')}/%{lookup('solr::service_name')}"
 solr::solr_home: "%{lookup('solr::var_dir')}/data"

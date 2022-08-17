@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update OS support, Puppet versions and module dependencies
 - Use modern facts instead of $fqdn
 - Switch to new Apache download mirror
+- Switch unit/acceptance tests to Solr 9.0.0
 - Migrate tests to GitHub Actions
 - Convert documentation to Puppet Strings
 

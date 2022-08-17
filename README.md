@@ -33,7 +33,7 @@ This module will install and configure the Solr search platform.
 
 * Puppet 6 or higher
 * Java 8 or higher (depending on the Solr version)
-* Tested with Solr 7.x and 8.x
+* Tested with Solr 7, 8 and 9
 
 It is recommended to use [puppetlabs/java](https://forge.puppet.com/puppetlabs/java) to manage the Java installation.
 
@@ -45,7 +45,7 @@ Install Solr with default settings and start the service afterwards:
 
 ```puppet
 class { 'solr':
-    version => '8.2.0',
+    version => '9.0.0',
 }
 ```
 
@@ -53,7 +53,7 @@ Furthermore, a number of simple options are available:
 
 ```puppet
 class { 'solr':
-    version => '8.2.0',
+    version => '9.0.0',
 
     # Allow automatic upgrades (when changing $version)
     upgrade => true,
@@ -64,7 +64,7 @@ class { 'solr':
 
     # Use custom installation and data directories
     extract_dir => '/opt',
-    install_dir => '/opt/solr-8.2.0',
+    install_dir => '/opt/solr-9.0.0',
     var_dir     => '/opt/solr-home',
     log_dir     => '/opt/solr-home/log',
     solr_home   => '/opt/solr-home/data',
@@ -96,7 +96,7 @@ This module makes it pretty easy to configure Solr Cloud:
 
 ```puppet
 class { 'solr':
-    version     => '8.2.0',
+    version     => '9.0.0',
     # Setup Solr cloud
     cloud       => true,
     zk_chroot   => 'foo',
@@ -112,7 +112,7 @@ When using Solr Cloud, you may use this module to manage your [custom plugins](h
 
 ```puppet
 class { 'solr':
-    version     => '8.2.0',
+    version     => '9.0.0',
     # Setup Solr cloud
     cloud       => true,
     ...
