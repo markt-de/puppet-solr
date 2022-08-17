@@ -60,7 +60,7 @@ class { 'solr':
 
     # Network settings
     solr_port => 8983,
-    solr_host => $fqdn,
+    solr_host => $facts['networking']['fqdn'],
 
     # Use custom installation and data directories
     extract_dir => '/opt',

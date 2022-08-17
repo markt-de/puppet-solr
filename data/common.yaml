@@ -31,7 +31,7 @@ solr::mirror: 'http://www.apache.org/dist/lucene/solr'
 solr::service_name: 'solr'
 solr::solr_base: "%{lookup('solr::extract_dir')}/%{lookup('solr::service_name')}"
 solr::solr_home: "%{lookup('solr::var_dir')}/data"
-solr::solr_host: "%{fqdn}"
+solr::solr_host: "%{facts.networking.fqdn}"
 solr::solr_opts: ~
 solr::solr_port: 8983
 solr::solr_time: 'UTC'
