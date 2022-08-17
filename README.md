@@ -1,6 +1,8 @@
 # puppet-solr
 
-[![Build Status](https://travis-ci.org/fraenki/puppet-solr.png?branch=master)](https://travis-ci.org/fraenki/puppet-solr)
+[![Build Status](https://github.com/markt-de/puppet-solr/actions/workflows/ci.yaml/badge.svg)](https://github.com/markt-de/puppet-solr/actions/workflows/ci.yaml)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/fraenki/solr.svg)](https://forge.puppetlabs.com/fraenki/solr)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/fraenki/solr.svg)](https://forge.puppetlabs.com/fraenki/solr)
 
 #### Table of Contents
 
