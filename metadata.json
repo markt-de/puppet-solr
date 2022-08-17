@@ -1,6 +1,6 @@
 {
   "name": "fraenki-solr",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "author": "Frank Wall",
   "summary": "Installs and configures the Solr search platform",
   "license": "Apache-2.0",
