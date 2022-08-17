@@ -44,7 +44,7 @@ fi
 # variables used by the bin/solr script. It's highly recommended to define this script so
 # that you can keep the Solr binary files separated from live files (pid, logs, index data, etc)
 # see bin/solr.in.sh for an example
-SOLR_ENV=<%= scope['solr::var_dir'] %>/solr.in.sh
+SOLR_ENV="<%= scope['solr::var_dir'] %>/solr.in.sh"
 
 if [ ! -f "$SOLR_ENV" ]; then
   echo "$SOLR_ENV not found! Please check the SOLR_ENV setting in your $0 script."
@@ -56,7 +56,7 @@ fi
 RUNAS=<%= scope['solr::solr_user'] %>
 
 # verify the specified run as user exists
-runas_uid=`id -u $RUNAS`
+runas_uid="`id -u "$RUNAS"`"
 if [ $? -ne 0 ]; then
   echo "User $RUNAS not found! Please create the $RUNAS user before running this script."
   exit 1
@@ -64,7 +64,7 @@ fi
 
 case "$1" in
   start|stop|restart|status)
-    SOLR_CMD=$1
+    SOLR_CMD="$1"
     ;;
   *)
     echo "Usage: $0 {start|stop|restart|status}"
@@ -72,7 +72,7 @@ case "$1" in
 esac
 
 if [ -n "$RUNAS" ]; then
-  su -c "SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr $SOLR_CMD" - $RUNAS
+  su -c "SOLR_INCLUDE=\"$SOLR_ENV\" \"$SOLR_INSTALL_DIR/bin/solr\" $SOLR_CMD" - "$RUNAS"
 else
-  SOLR_INCLUDE=$SOLR_ENV $SOLR_INSTALL_DIR/bin/solr $SOLR_CMD
+  SOLR_INCLUDE="$SOLR_ENV" "$SOLR_INSTALL_DIR/bin/solr" "$SOLR_CMD"
 fi
