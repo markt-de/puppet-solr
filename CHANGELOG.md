@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- Suppress warning about soft limit for number of files in /opt/staging exceeded ([#5])
+
 ## [3.0.0] - 2022-08-17
 
 ### Added
