@@ -10,8 +10,7 @@ class solr::install {
   file { $solr::staging_dir:
     ensure    => directory,
     recurse   => true,
-    # Suppress "Warning: The directory '$solr::staging_dir' contains #### entries, which exceeds the default soft limit 1000"
-    # The unpacked Solr archive has more than 1000 files, and would otherwise trigger this warning every puppet run.
+    # Suppress warning about exceeding the limit for number of files.
     max_files => -1,
   }
 
