@@ -8,8 +8,11 @@ class solr::install {
   include 'archive'
 
   file { $solr::staging_dir:
-    ensure  => directory,
-    recurse => true,
+    ensure    => directory,
+    recurse   => true,
+    # Suppress "Warning: The directory '$solr::staging_dir' contains #### entries, which exceeds the default soft limit 1000"
+    # The unpacked Solr archive has more than 1000 files, and would otherwise trigger this warning every puppet run.
+    max_files => -1,
   }
 
   archive { "${solr::staging_dir}/solr-${solr::version}.tgz":
