@@ -95,6 +95,10 @@ describe 'solr' do
             ).with_content(%r{SOLR_ENV="/var/solr/solr.in.sh"})
           }
 
+          it { is_expected.to contain_systemd__service_limits('solr.service') }
+          it { is_expected.to contain_limits__limits('solr/nofile') }
+          it { is_expected.to contain_limits__limits('solr/nproc') }
+
           it { is_expected.to contain_service('solr') }
         end
       end
