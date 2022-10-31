@@ -31,11 +31,21 @@
 # @param java_mem
 #   Sets JVM memory settings for Solr.
 #
+# @param limit_file_max
+#   Sets the maximum number of file descriptors.
+#
+# @param limit_proc_max
+#   Sets the maximum number of processes.
+#
 # @param log_dir
 #   Sets the directory for Solr logs.
 #
 # @param manage_custom_plugins
 #   Determines whether to enable support for custom plugins.
+#
+# @param manage_service_limits
+#   Determines whether to set resource limits for the Solr service. The service
+#   is NOT restarted when limits are changed.
 #
 # @param mirror
 #   Sets the download location for Solr archives. It will be used during installations and upgrades.
@@ -110,6 +120,9 @@ class solr (
   Stdlib::Compat::Absolute_path $custom_plugins_dir,
   String $custom_plugins_id,
   String $staging_dir,
+  Boolean $manage_service_limits,
+  Integer $limit_file_max,
+  Integer $limit_proc_max,
   Optional[Array] $gc_log_opts,
   Optional[Array] $gc_tune,
   Optional[Stdlib::Compat::Absolute_path] $java_home,

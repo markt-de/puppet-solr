@@ -6,8 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Add new parameters: `$limit_file_max`, `$limit_proc_max`, `$manage_service_limits`
+- New dependency: saz/limits
+
+### Changed
+- Set service limits for maximum number of processes and file descriptors
+- Using `$manage_service_limits` will cause ALL other limits to be purged
+
 ### Fixed
-- Suppress warning about soft limit for number of files in /opt/staging exceeded ([#5])
+- Suppress Puppet warning about soft limit for number of files in /opt/staging exceeded ([#5])
+- Solve Solr warning about ulimit checks
 
 ## [3.0.0] - 2022-08-17
 

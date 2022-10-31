@@ -120,6 +120,18 @@ Data type: `String`
 
 Sets JVM memory settings for Solr.
 
+##### <a name="limit_file_max"></a>`limit_file_max`
+
+Data type: `Integer`
+
+Sets the maximum number of file descriptors.
+
+##### <a name="limit_proc_max"></a>`limit_proc_max`
+
+Data type: `Integer`
+
+Sets the maximum number of processes.
+
 ##### <a name="log_dir"></a>`log_dir`
 
 Data type: `Stdlib::Compat::Absolute_path`
@@ -131,6 +143,12 @@ Sets the directory for Solr logs.
 Data type: `Boolean`
 
 Determines whether to enable support for custom plugins.
+
+##### <a name="manage_service_limits"></a>`manage_service_limits`
+
+Data type: `Boolean`
+
+Determines whether to set resource limits for the Solr service. The service is NOT restarted when limits are changed.
 
 ##### <a name="mirror"></a>`mirror`
 

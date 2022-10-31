@@ -17,6 +17,10 @@
       "version_requirement": ">= 7.0.0 < 9.0.0"
     },
     {
+      "name": "saz/limits",
+      "version_requirement": ">= 3.0.0 < 4.0.0"
+    },
+    {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 6.6.0 < 9.0.0"
     },

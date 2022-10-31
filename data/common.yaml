@@ -25,8 +25,11 @@ solr::gc_tune:
   - '-XX:+ParallelRefProcEnabled'
 solr::java_home: ~
 solr::java_mem: '-Xms512m -Xmx512m'
+solr::limit_file_max: 65000
+solr::limit_proc_max: 65000
 solr::log_dir: '/var/log/solr'
 solr::manage_custom_plugins: false
+solr::manage_service_limits: true
 solr::mirror: 'https://dlcdn.apache.org/solr/solr'
 solr::service_name: 'solr'
 solr::solr_base: "%{lookup('solr::extract_dir')}/%{lookup('solr::service_name')}"
