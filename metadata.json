@@ -1,7 +1,7 @@
 {
   "name": "fraenki-solr",
-  "version": "3.0.0",
-  "author": "Frank Wall",
+  "version": "3.1.0",
+  "author": "markt.de",
   "summary": "Installs and configures the Solr search platform",
   "license": "Apache-2.0",
   "source": "https://github.com/markt-de/puppet-solr",

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.1.0] - 2022-10-31
 
 ### Added
 - Add new parameters: `$limit_file_max`, `$limit_proc_max`, `$manage_service_limits`
@@ -12,10 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Set service limits for maximum number of processes and file descriptors
-- Using `$manage_service_limits` will cause ALL other limits to be purged
+- New param `$manage_service_limits` will cause ALL other limits to be purged
 
 ### Fixed
-- Suppress Puppet warning about soft limit for number of files in /opt/staging exceeded ([#5])
+- Suppress Puppet warning about limit for number of files in /opt/staging exceeded ([#5])
 - Solve Solr warning about ulimit checks
 
 ## [3.0.0] - 2022-08-17
@@ -108,12 +108,14 @@ migrate from spacepants/puppet-solr to this version with only minor modification
 ### Removed
 - Remove unused parameter `$install_dir`
 
-[Unreleased]: https://github.com/markt-de/puppet-solr/compare/3.0.0...HEAD
+[Unreleased]: https://github.com/markt-de/puppet-solr/compare/3.1.0...HEAD
+[3.1.0]: https://github.com/markt-de/puppet-solr/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/markt-de/puppet-solr/compare/2.2.1...3.0.0
 [2.2.1]: https://github.com/markt-de/puppet-solr/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/markt-de/puppet-solr/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/markt-de/puppet-solr/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/markt-de/puppet-solr/compare/1.0.0...2.0.0
+[#5]: https://github.com/markt-de/puppet-solr/pull/5
 [#4]: https://github.com/markt-de/puppet-solr/pull/4
 [#3]: https://github.com/markt-de/puppet-solr/pull/3
 [#2]: https://github.com/markt-de/puppet-solr/pull/2
