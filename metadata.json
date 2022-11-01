@@ -1,6 +1,6 @@
 {
   "name": "fraenki-solr",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "author": "markt.de",
   "summary": "Installs and configures the Solr search platform",
   "license": "Apache-2.0",
