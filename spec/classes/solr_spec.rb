@@ -101,6 +101,21 @@ describe 'solr' do
 
           it { is_expected.to contain_service('solr') }
         end
+
+        context 'solr class when manage_service_limits is set to false' do
+          let(:params) do
+            {
+              manage_service_limits: false,
+              version: '9.0.0',
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          it { is_expected.not_to contain_systemd__service_limits('solr.service') }
+          it { is_expected.not_to contain_limits__limits('solr/nofile') }
+          it { is_expected.not_to contain_limits__limits('solr/nproc') }
+        end
       end
     end
   end
