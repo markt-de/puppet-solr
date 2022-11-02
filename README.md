@@ -66,7 +66,6 @@ class { 'solr':
 
     # Use custom installation and data directories
     extract_dir => '/opt',
-    install_dir => '/opt/solr-9.0.0',
     var_dir     => '/opt/solr-home',
     log_dir     => '/opt/solr-home/log',
     solr_home   => '/opt/solr-home/data',
