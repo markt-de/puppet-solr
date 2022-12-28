@@ -1,6 +1,7 @@
 <%- | String $exporter_dir,
       String $user,
-      String $command
+      String $command,
+      Hash   $env_vars
 | -%>
 # THIS FILE IS MANAGED BY PUPPET
 [Unit]
@@ -11,6 +12,9 @@ After=network-online.target
 [Service]
 WorkingDirectory=<%= $exporter_dir %>
 User=<%= $user %>
+<% $env_vars.each |$key, $value| { -%>
+Environment="<%= $key %>=<%= $value %>"
+<% } -%>
 ExecStart=<%= $command %>
 
 Type=simple

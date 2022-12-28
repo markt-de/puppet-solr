@@ -166,6 +166,20 @@ describe 'solr' do
 
           it { is_expected.to compile.with_all_deps.and_raise_error(%r{The provided version 7\.2\.1 does not contain the embedded exporter \(min 7\.3\.0\)}) }
         end
+
+        context 'solr class when enable_prometheus_exporter is set to true and env_vars are provided' do
+          let(:params) do
+            {
+              enable_prometheus_exporter: true,
+              prometheus_exporter_env_vars: {'JAVA_HEAP': '128m'},
+              version: '9.0.0',
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          it { is_expected.to contain_systemd__unit_file('solr-exporter.service').with_content(%r{Environment="JAVA_HEAP=128m"}) }
+        end
       end
     end
   end

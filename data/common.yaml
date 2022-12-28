@@ -32,6 +32,7 @@ solr::log_dir: '/var/log/solr'
 solr::manage_custom_plugins: false
 solr::manage_service_limits: true
 solr::mirror: 'https://dlcdn.apache.org/solr/solr'
+solr::prometheus_exporter_env_vars: {}
 solr::prometheus_exporter_extra_options: ~
 solr::prometheus_exporter_user: "%{lookup('solr::solr_user')}"
 solr::prometheus_exporter_service_name: 'solr-exporter'

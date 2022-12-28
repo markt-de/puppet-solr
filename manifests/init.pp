@@ -59,6 +59,9 @@
 # @param prometheus_exporter_user
 #   Sets the user running the solr-exporter binary.
 #
+# @param prometheus_exporter_env_vars
+#   Sets solr-exporter environment variables in service file (see https://solr.apache.org/guide/solr/latest/deployment-guide/monitoring-with-prometheus-and-grafana.html#environment-variable-options).
+#
 # @param prometheus_exporter_extra_options
 #   Sets solr-exporter custom command line options (see https://solr.apache.org/guide/solr/latest/deployment-guide/monitoring-with-prometheus-and-grafana.html#command-line-parameters).
 #
@@ -138,6 +141,7 @@ class solr (
   Integer $limit_proc_max,
   String $prometheus_exporter_service_name,
   String $prometheus_exporter_user,
+  Optional[Hash] $prometheus_exporter_env_vars,
   Optional[String] $prometheus_exporter_extra_options,
   Optional[Array] $gc_log_opts,
   Optional[Array] $gc_tune,

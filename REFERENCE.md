@@ -51,6 +51,7 @@ The following parameters are available in the `solr` class:
 * [`mirror`](#mirror)
 * [`service_name`](#service_name)
 * [`prometheus_exporter_user`](#prometheus_exporter_user)
+* [`prometheus_exporter_env_vars`](#prometheus_exporter_env_vars)
 * [`prometheus_exporter_extra_options`](#prometheus_exporter_extra_options)
 * [`prometheus_exporter_service_name`](#prometheus_exporter_service_name)
 * [`solr_base`](#solr_base)
@@ -182,6 +183,12 @@ Sets the name of the system service that should be setup.
 Data type: `String`
 
 Sets the user running the solr-exporter binary.
+
+##### <a name="prometheus_exporter_env_vars"></a>`prometheus_exporter_env_vars`
+
+Data type: `Optional[Hash]`
+
+Sets solr-exporter environment variables in service file (see https://solr.apache.org/guide/solr/latest/deployment-guide/monitoring-with-prometheus-and-grafana.html#environment-variable-options).
 
 ##### <a name="prometheus_exporter_extra_options"></a>`prometheus_exporter_extra_options`
 

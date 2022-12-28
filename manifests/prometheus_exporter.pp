@@ -33,6 +33,7 @@ class solr::prometheus_exporter {
     content => epp('solr/solr-exporter.systemd.epp', {
         'exporter_dir' => $exporter_dir,
         'user'         => $solr::prometheus_exporter_user,
+        'env_vars'     => $solr::prometheus_exporter_env_vars,
         'command'      => $command,
     }),
     require => File[$bin_path],
