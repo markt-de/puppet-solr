@@ -3,6 +3,7 @@ solr::cloud: false
 solr::custom_plugins: []
 solr::custom_plugins_dir: "%{lookup('solr::var_dir')}/libs"
 solr::custom_plugins_id: 'solr.custom_plugins.dir'
+solr::enable_prometheus_exporter: false
 solr::enable_remote_jmx: false
 solr::extract_dir: '/opt'
 solr::gc_log_opts:
@@ -31,6 +32,9 @@ solr::log_dir: '/var/log/solr'
 solr::manage_custom_plugins: false
 solr::manage_service_limits: true
 solr::mirror: 'https://dlcdn.apache.org/solr/solr'
+solr::prometheus_exporter_extra_options: ~
+solr::prometheus_exporter_user: "%{lookup('solr::solr_user')}"
+solr::prometheus_exporter_service_name: 'solr-exporter'
 solr::service_name: 'solr'
 solr::solr_base: "%{lookup('solr::extract_dir')}/%{lookup('solr::service_name')}"
 solr::solr_home: "%{lookup('solr::var_dir')}/data"

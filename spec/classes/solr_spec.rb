@@ -116,6 +116,56 @@ describe 'solr' do
           it { is_expected.not_to contain_limits__limits('solr/nofile') }
           it { is_expected.not_to contain_limits__limits('solr/nproc') }
         end
+
+        context 'solr class when enable_prometheus_exporter is set to true' do
+          let(:params) do
+            {
+              enable_prometheus_exporter: true,
+              version: '9.0.0',
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          it { is_expected.to contain_class('solr::prometheus_exporter').that_requires('Class[solr]') }
+
+          it { is_expected.to contain_file('/opt/solr/prometheus-exporter/bin/solr-exporter').with('mode' => '0755') }
+          it { is_expected.to contain_systemd__unit_file('solr-exporter.service').that_requires('File[/opt/solr/prometheus-exporter/bin/solr-exporter]').that_notifies('Service[solr-exporter]') }
+          it { is_expected.to contain_service('solr-exporter').with('ensure' => 'running', 'enable' => true) }
+        end
+
+        context 'solr class when enable_prometheus_exporter is set to true with version < 9.0.0' do
+          let(:params) do
+            {
+              enable_prometheus_exporter: true,
+              version: '8.11.2',
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          it { is_expected.to contain_class('solr::prometheus_exporter').that_requires('Class[solr]') }
+
+          it { is_expected.to contain_file('/opt/solr/contrib/prometheus-exporter/bin/solr-exporter').with('mode' => '0755') }
+          it {
+            is_expected.to contain_systemd__unit_file('solr-exporter.service')
+              .that_requires('File[/opt/solr/contrib/prometheus-exporter/bin/solr-exporter]')
+              .that_notifies('Service[solr-exporter]')
+          }
+          it { is_expected.to contain_service('solr-exporter').with('ensure' => 'running', 'enable' => true) }
+        end
+
+        context 'solr class fails when enable_prometheus_exporter is set to true with version < 7.3.0' do
+          let(:params) do
+            {
+              enable_prometheus_exporter: true,
+              version: '7.2.1',
+              mirror: 'https://archive.apache.org/dist/lucene/solr/',
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps.and_raise_error(%r{The provided version 7\.2\.1 does not contain the embedded exporter \(min 7\.3\.0\)}) }
+        end
       end
     end
   end

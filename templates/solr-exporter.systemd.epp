@@ -1,0 +1,22 @@
+<%- | String $exporter_dir,
+      String $user,
+      String $command
+| -%>
+# THIS FILE IS MANAGED BY PUPPET
+[Unit]
+Description=Solr Prometheus Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+WorkingDirectory=<%= $exporter_dir %>
+User=<%= $user %>
+ExecStart=<%= $command %>
+
+Type=simple
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

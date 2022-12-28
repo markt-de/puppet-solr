@@ -15,6 +15,7 @@
 * `solr::config`: Setup and configure Solr.
 * `solr::customplugins`: Manages custom plugins for Solr.
 * `solr::install`: Installs and prepares the Solr application.
+* `solr::prometheus_exporter`: Configure the embedded prometheus exporter as a service.
 * `solr::service`: Installs and configures the Solr service.
 
 ### Defined types
@@ -35,16 +36,23 @@ The following parameters are available in the `solr` class:
 * [`custom_plugins`](#custom_plugins)
 * [`custom_plugins_dir`](#custom_plugins_dir)
 * [`custom_plugins_id`](#custom_plugins_id)
+* [`enable_prometheus_exporter`](#enable_prometheus_exporter)
 * [`enable_remote_jmx`](#enable_remote_jmx)
 * [`extract_dir`](#extract_dir)
 * [`gc_log_opts`](#gc_log_opts)
 * [`gc_tune`](#gc_tune)
 * [`java_home`](#java_home)
 * [`java_mem`](#java_mem)
+* [`limit_file_max`](#limit_file_max)
+* [`limit_proc_max`](#limit_proc_max)
 * [`log_dir`](#log_dir)
 * [`manage_custom_plugins`](#manage_custom_plugins)
+* [`manage_service_limits`](#manage_service_limits)
 * [`mirror`](#mirror)
 * [`service_name`](#service_name)
+* [`prometheus_exporter_user`](#prometheus_exporter_user)
+* [`prometheus_exporter_extra_options`](#prometheus_exporter_extra_options)
+* [`prometheus_exporter_service_name`](#prometheus_exporter_service_name)
 * [`solr_base`](#solr_base)
 * [`solr_home`](#solr_home)
 * [`solr_host`](#solr_host)
@@ -83,6 +91,12 @@ Sets the target directory for custom plugins.
 Data type: `String`
 
 Sets the Solr config option that is used to configure custom plugins.
+
+##### <a name="enable_prometheus_exporter"></a>`enable_prometheus_exporter`
+
+Data type: `Boolean`
+
+Determines whether to enable embedded prometheus exporter as a service.
 
 ##### <a name="enable_remote_jmx"></a>`enable_remote_jmx`
 
@@ -148,7 +162,8 @@ Determines whether to enable support for custom plugins.
 
 Data type: `Boolean`
 
-Determines whether to set resource limits for the Solr service. The service is NOT restarted when limits are changed.
+Determines whether to set resource limits for the Solr service. The service
+is NOT restarted when limits are changed.
 
 ##### <a name="mirror"></a>`mirror`
 
@@ -161,6 +176,24 @@ Sets the download location for Solr archives. It will be used during installatio
 Data type: `String`
 
 Sets the name of the system service that should be setup.
+
+##### <a name="prometheus_exporter_user"></a>`prometheus_exporter_user`
+
+Data type: `String`
+
+Sets the user running the solr-exporter binary.
+
+##### <a name="prometheus_exporter_extra_options"></a>`prometheus_exporter_extra_options`
+
+Data type: `Optional[String]`
+
+Sets solr-exporter custom command line options (see https://solr.apache.org/guide/solr/latest/deployment-guide/monitoring-with-prometheus-and-grafana.html#command-line-parameters).
+
+##### <a name="prometheus_exporter_service_name"></a>`prometheus_exporter_service_name`
+
+Data type: `String`
+
+Sets the name of the prometheus exporter system service that should be setup.
 
 ##### <a name="solr_base"></a>`solr_base`
 

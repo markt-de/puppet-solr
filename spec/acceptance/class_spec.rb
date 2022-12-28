@@ -65,4 +65,44 @@ describe 'solr class' do
       }
     end
   end
+  context 'with exporter' do
+    describe 'work idempotently with no errors' do
+      let(:pp) do
+        <<-MANIFEST
+        class { 'solr':
+          version                    => '9.0.0',
+          # Use 'localhost' for acceptance tests.
+          solr_host                  => 'localhost',
+          # Use Apache Archive, because "old" releases get removed
+          # very quickly from the official mirrors.
+          # mirror    => 'https://archive.apache.org/dist/lucene/solr',
+          enable_prometheus_exporter => true,
+        }
+        MANIFEST
+      end
+
+      it 'runs successfully' do
+        apply_manifest(pp, catch_failures: true)
+      end
+
+      it 'is idempotent' do
+        apply_manifest(pp, catch_changes: true)
+      end
+    end
+
+    describe service('solr-exporter') do
+      it { is_expected.to be_enabled }
+      it { is_expected.to be_running }
+    end
+
+    describe port(8989) do
+      it {
+        # Solr-exporter may take a while to start up
+        sleep(10)
+        # Depending on the host system, this may be either IPv4-
+        # or IPv6-only, so both needs to work.
+        is_expected.to be_listening
+      }
+    end
+  end
 end
