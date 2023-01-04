@@ -171,7 +171,7 @@ describe 'solr' do
           let(:params) do
             {
               enable_prometheus_exporter: true,
-              prometheus_exporter_env_vars: {'JAVA_HEAP': '128m'},
+              prometheus_exporter_env_vars: { 'JAVA_HEAP': '128m' },
               version: '9.0.0',
             }
           end
