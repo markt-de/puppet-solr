@@ -1,3 +1,10 @@
+<%- | Boolean $enable_syslog,
+      String  $syslog_host,
+      Integer $syslog_port,
+      String  $syslog_protocol,
+      String  $syslog_app_name,
+      String  $syslog_facility
+| -%>
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -18,7 +25,17 @@
 
 <Configuration>
   <Appenders>
-
+<% if $enable_syslog == true { -%>
+    <Syslog
+        name="Syslog"
+        format="RFC5424"
+        host="<%= $syslog_host %>"
+        port="<%= $syslog_port %>"
+        protocol="<%= $syslog_protocol %>"
+        appName="<%= $syslog_app_name %>"
+        facility="<%= $syslog_facility %>"
+        newLine="true" />
+<% } else { -%>
     <Console name="STDOUT" target="SYSTEM_OUT">
       <PatternLayout>
         <Pattern>
@@ -42,6 +59,7 @@
       </Policies>
       <DefaultRolloverStrategy max="10"/>
     </RollingFile>
+<% } -%>
 
     <RollingFile
         name="SlowFile"
@@ -69,7 +87,11 @@
     </Logger>
 
     <Root level="info">
+<% if $enable_syslog == true { -%>
+      <AppenderRef ref="Syslog"/>
+<% } else { -%>
       <AppenderRef ref="RollingFile"/>
+<% } -%>
       <AppenderRef ref="STDOUT"/>
     </Root>
   </Loggers>

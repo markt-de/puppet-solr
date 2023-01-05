@@ -43,6 +43,24 @@
 # @param log_dir
 #   Sets the directory for Solr logs.
 #
+# @param enable_syslog
+#   Configure syslog appender instead of file.
+#
+# @param syslog_host
+#   Sets the destination host for syslog.
+#
+# @param syslog_port
+#   Sets the destination port for syslog.
+#
+# @param syslog_protocol
+#   Sets the protocol for syslog.
+#
+# @param syslog_app_name
+#   Sets the appName for syslog.
+#
+# @param syslog_facility
+#   Sets the destination facility for syslog.
+#
 # @param manage_custom_plugins
 #   Determines whether to enable support for custom plugins.
 #
@@ -117,6 +135,12 @@ class solr (
   Stdlib::Compat::Absolute_path $var_dir,
   Stdlib::Compat::Absolute_path $solr_home,
   Stdlib::Compat::Absolute_path $log_dir,
+  Boolean $enable_syslog,
+  String $syslog_host,
+  Integer $syslog_port,
+  String $syslog_protocol,
+  String $syslog_app_name,
+  String $syslog_facility,
   Integer $solr_port,
   String $solr_user,
   String $java_mem,
