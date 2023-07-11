@@ -1,5 +1,5 @@
 {
-  "name": "fraenki-solr",
+  "name": "markt-solr",
   "version": "3.1.1",
   "author": "markt.de",
   "summary": "Installs and configures the Solr search platform",
