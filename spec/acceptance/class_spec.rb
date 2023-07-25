@@ -1,6 +1,8 @@
 require 'spec_helper_acceptance'
 
 describe 'solr class' do
+  let(:solr_version) { '9.0.0' }
+
   before(:all) do
     apply_manifest(%(
       # Tests will fail if `ss` is not installed.
@@ -31,12 +33,12 @@ describe 'solr class' do
       let(:pp) do
         <<-MANIFEST
         class { 'solr':
-          version   => '9.0.0',
+          version   => '#{solr_version}',
           # Use 'localhost' for acceptance tests.
           solr_host => 'localhost',
           # Use Apache Archive, because "old" releases get removed
           # very quickly from the official mirrors.
-          # mirror    => 'https://archive.apache.org/dist/lucene/solr',
+          mirror    => 'https://archive.apache.org/dist/solr/solr/#{solr_version}',
         }
         MANIFEST
       end
