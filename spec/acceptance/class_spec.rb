@@ -38,7 +38,7 @@ describe 'solr class' do
           solr_host => 'localhost',
           # Use Apache Archive, because "old" releases get removed
           # very quickly from the official mirrors.
-          mirror    => 'https://archive.apache.org/dist/solr/solr/#{solr_version}',
+          mirror    => 'https://archive.apache.org/dist/solr/solr',
         }
         MANIFEST
       end
