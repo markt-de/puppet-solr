@@ -1,6 +1,6 @@
 {
-  "name": "fraenki-solr",
-  "version": "3.1.1",
+  "name": "markt-solr",
+  "version": "3.2.0",
   "author": "markt.de",
   "summary": "Installs and configures the Solr search platform",
   "license": "Apache-2.0",
@@ -10,11 +10,11 @@
   "dependencies": [
     {
       "name": "puppet/archive",
-      "version_requirement": ">= 5.0.0 < 7.0.0"
+      "version_requirement": ">= 5.0.0 < 8.0.0"
     },
     {
       "name": "puppetlabs/java",
-      "version_requirement": ">= 7.0.0 < 9.0.0"
+      "version_requirement": ">= 7.0.0 < 11.0.0"
     },
     {
       "name": "saz/limits",
@@ -22,11 +22,11 @@
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 6.6.0 < 9.0.0"
+      "version_requirement": ">= 6.6.0 < 10.0.0"
     },
     {
       "name": "puppet/systemd",
-      "version_requirement": ">= 3.5.0 < 4.0.0"
+      "version_requirement": ">= 3.5.0 < 6.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -40,7 +40,6 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "18.04",
         "20.04",
         "22.04"
       ]
@@ -65,7 +64,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 6.0.0 < 8.0.0"
+      "version_requirement": ">= 6.0.0 < 9.0.0"
     }
   ],
   "tags": [
@@ -76,7 +75,7 @@
     "cloud",
     "plugins"
   ],
-  "pdk-version": "2.5.0",
-  "template-url": "pdk-default#2.5.0",
-  "template-ref": "tags/2.5.0-0-g369d483"
+  "pdk-version": "3.0.1",
+  "template-url": "https://github.com/markt-de/pdk-templates.git#main",
+  "template-ref": "heads/main-0-g909fd77"
 }

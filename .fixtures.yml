@@ -1,13 +1,13 @@
 fixtures:
-  repositories:
-    facts: "https://github.com/puppetlabs/puppetlabs-facts.git"
-    provision: "https://github.com/puppetlabs/provision.git"
-    puppet_agent: "https://github.com/puppetlabs/puppetlabs-puppet_agent.git"
   forge_modules:
     archive: "puppet/archive"
     java: "puppetlabs/java"
     limits: "saz/limits"
     stdlib: "puppetlabs/stdlib"
     systemd: "puppet/systemd"
+  repositories:
+    facts: "https://github.com/puppetlabs/puppetlabs-facts.git"
+    provision: "https://github.com/puppetlabs/provision.git"
+    puppet_agent: "https://github.com/puppetlabs/puppetlabs-puppet_agent.git"
   symlinks:
     solr: "#{source_dir}"

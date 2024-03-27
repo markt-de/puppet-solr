@@ -57,7 +57,7 @@ class solr::customplugins {
       # Ensure that user-provided values do not conflict with what is needed
       # in order to properly manage custom plugins. Simply overwrite all
       # user-provided values for options that are required.
-      $_custom_plugin = deep_merge($_tmp,{
+      $_custom_plugin = deep_merge($_tmp, {
           ensure       => present,
           path         => $_path,
           extract_path => $current_custom_plugins_dir,

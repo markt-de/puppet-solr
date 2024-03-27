@@ -60,7 +60,7 @@ class solr::config {
 
   # When managing custom plugins, add the required startup option.
   if ($solr::manage_custom_plugins and !empty($solr::custom_plugins)) {
-    $solr_opts = union($solr::solr_opts,["-D${solr::custom_plugins_id}=${solr::custom_plugins_dir}"])
+    $solr_opts = union($solr::solr_opts, ["-D${solr::custom_plugins_id}=${solr::custom_plugins_dir}"])
   } else {
     # When not managing custom plugins, pass options unmodified.
     $solr_opts = $solr::solr_opts
