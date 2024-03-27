@@ -13,6 +13,9 @@
 # @param custom_plugins_id
 #   Sets the Solr config option that is used to configure custom plugins.
 #
+# @param enable_prometheus_exporter
+#   Determines whether to enable embedded prometheus exporter as a service.
+#
 # @param enable_remote_jmx
 #   Determines whether to enable remote JMX support.
 #
@@ -52,6 +55,18 @@
 #
 # @param service_name
 #   Sets the name of the system service that should be setup.
+#
+# @param prometheus_exporter_user
+#   Sets the user running the solr-exporter binary.
+#
+# @param prometheus_exporter_env_vars
+#   Sets solr-exporter environment variables in service file (see https://solr.apache.org/guide/solr/latest/deployment-guide/monitoring-with-prometheus-and-grafana.html#environment-variable-options).
+#
+# @param prometheus_exporter_extra_options
+#   Sets solr-exporter custom command line options (see https://solr.apache.org/guide/solr/latest/deployment-guide/monitoring-with-prometheus-and-grafana.html#command-line-parameters).
+#
+# @param prometheus_exporter_service_name
+#   Sets the name of the prometheus exporter system service that should be setup.
 #
 # @param solr_base
 #   Internal module parameter, SHOULD NOT BE CHANGED! Specifies a symlink that is created by the Solr installer.
@@ -112,6 +127,7 @@ class solr (
   Integer $zk_timeout,
   String $solr_host,
   String $solr_time,
+  Boolean $enable_prometheus_exporter,
   Boolean $enable_remote_jmx,
   String $service_name,
   Stdlib::Absolutepath $solr_base,
@@ -123,6 +139,10 @@ class solr (
   Boolean $manage_service_limits,
   Integer $limit_file_max,
   Integer $limit_proc_max,
+  String $prometheus_exporter_service_name,
+  String $prometheus_exporter_user,
+  Optional[Hash] $prometheus_exporter_env_vars,
+  Optional[String] $prometheus_exporter_extra_options,
   Optional[Array] $gc_log_opts,
   Optional[Array] $gc_tune,
   Optional[Stdlib::Absolutepath] $java_home,
@@ -133,4 +153,10 @@ class solr (
   -> Class { 'solr::customplugins': }
   -> Class { 'solr::service': }
   -> Class['solr']
+
+  if $enable_prometheus_exporter {
+    Class { 'solr::prometheus_exporter':
+      require => Class['solr'],
+    }
+  }
 }
