@@ -1,6 +1,9 @@
 ---
 lookup_options:
   # Usually we want to REPLACE (not merge) advanced options.
+  "^solr::additional_packages":
+    merge:
+      strategy: first
   "^solr::gc*":
     merge:
       strategy: first

@@ -1,0 +1,4 @@
+---
+solr::additional_packages:
+  # prometheus exporter requires `which`
+  - 'which'

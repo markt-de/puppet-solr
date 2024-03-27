@@ -7,6 +7,10 @@ class solr::install {
 
   include 'archive'
 
+  if $solr::manage_additional_packages {
+    ensure_packages($solr::additional_packages)
+  }
+
   file { $solr::staging_dir:
     ensure    => directory,
     recurse   => true,

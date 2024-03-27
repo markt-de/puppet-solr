@@ -1,6 +1,9 @@
 # @summary
 #   Installs and configures the Solr search platform.
 #
+# @param additional_packages
+#   Specifies a list of additional packages that are required for Solr or one of its components.
+#
 # @param cloud
 #   Determines whether to enable Solr Cloud.
 #
@@ -18,6 +21,9 @@
 #
 # @param enable_remote_jmx
 #   Determines whether to enable remote JMX support.
+#
+# @param enable_syslog
+#   Configure syslog appender instead of file.
 #
 # @param extract_dir
 #   Sets the directory where the Solr installation archive should be extracted.
@@ -43,23 +49,8 @@
 # @param log_dir
 #   Sets the directory for Solr logs.
 #
-# @param enable_syslog
-#   Configure syslog appender instead of file.
-#
-# @param syslog_host
-#   Sets the destination host for syslog.
-#
-# @param syslog_port
-#   Sets the destination port for syslog.
-#
-# @param syslog_protocol
-#   Sets the protocol for syslog.
-#
-# @param syslog_app_name
-#   Sets the appName for syslog.
-#
-# @param syslog_facility
-#   Sets the destination facility for syslog.
+# @param manage_additional_packages
+#   Whether to manage the installation of additional packages.
 #
 # @param manage_custom_plugins
 #   Determines whether to enable support for custom plugins.
@@ -110,6 +101,21 @@
 # @param staging_dir
 #   Sets the staging directory that is used when installing or upgrading Solr.
 #
+# @param syslog_app_name
+#   Sets the appName for syslog.
+#
+# @param syslog_facility
+#   Sets the destination facility for syslog.
+#
+# @param syslog_host
+#   Sets the destination host for syslog.
+#
+# @param syslog_port
+#   Sets the destination port for syslog.
+#
+# @param syslog_protocol
+#   Sets the protocol for syslog.
+#
 # @param upgrade
 #   Determines whether to enable upgrades to a new Solr version (see `$version`).
 #
@@ -155,6 +161,8 @@ class solr (
   Boolean $enable_remote_jmx,
   String $service_name,
   Stdlib::Absolutepath $solr_base,
+  Array $additional_packages,
+  Boolean $manage_additional_packages,
   Boolean $manage_custom_plugins,
   Array $custom_plugins,
   Stdlib::Absolutepath $custom_plugins_dir,

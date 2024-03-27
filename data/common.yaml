@@ -1,4 +1,5 @@
 ---
+solr::additional_packages: []
 solr::cloud: false
 solr::custom_plugins: []
 solr::custom_plugins_dir: "%{lookup('solr::var_dir')}/libs"
@@ -30,6 +31,7 @@ solr::java_mem: '-Xms512m -Xmx512m'
 solr::limit_file_max: 65000
 solr::limit_proc_max: 65000
 solr::log_dir: '/var/log/solr'
+solr::manage_additional_packages: true
 solr::manage_custom_plugins: false
 solr::manage_service_limits: true
 solr::mirror: 'https://dlcdn.apache.org/solr/solr'

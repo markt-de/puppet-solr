@@ -22,6 +22,15 @@ describe 'solr' do
           it { is_expected.to contain_class('solr::config').that_comes_before('Class[solr::service]') }
           it { is_expected.to contain_class('solr::service') }
 
+          case facts[:osfamily]
+          when 'RedHat'
+            it {
+              is_expected.to contain_package('which').with(
+                ensure: 'installed',
+              )
+            }
+          end
+
           it {
             is_expected.to contain_archive('/opt/staging/solr-9.0.0.tgz').with(
               extract_path: '/opt/staging',
