@@ -1,7 +1,7 @@
 require 'spec_helper_acceptance'
 
 describe 'solr class' do
-  let(:solr_version) { '9.0.0' }
+  let(:solr_version) { '9.4.1' }
 
   before(:all) do
     apply_manifest(%(
@@ -72,7 +72,7 @@ describe 'solr class' do
       let(:pp) do
         <<-MANIFEST
         class { 'solr':
-          version                    => '9.0.0',
+          version                    => '9.4.1',
           # Use 'localhost' for acceptance tests.
           solr_host                  => 'localhost',
           # Use Apache Archive, because "old" releases get removed

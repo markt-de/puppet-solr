@@ -47,7 +47,7 @@ Install Solr with default settings and start the service afterwards:
 
 ```puppet
 class { 'solr':
-    version => '9.0.0',
+    version => '9.4.1',
 }
 ```
 
@@ -55,7 +55,7 @@ Furthermore, a number of simple options are available:
 
 ```puppet
 class { 'solr':
-    version => '9.0.0',
+    version => '9.4.1',
 
     # Allow automatic upgrades (when changing $version)
     upgrade => true,
@@ -97,7 +97,7 @@ This module makes it pretty easy to configure Solr Cloud:
 
 ```puppet
 class { 'solr':
-    version     => '9.0.0',
+    version     => '9.4.1',
     # Setup Solr cloud
     cloud       => true,
     zk_chroot   => 'foo',
@@ -113,7 +113,7 @@ When using Solr Cloud, you may use this module to manage your [custom plugins](h
 
 ```puppet
 class { 'solr':
-    version     => '9.0.0',
+    version     => '9.4.1',
     # Setup Solr cloud
     cloud       => true,
     ...

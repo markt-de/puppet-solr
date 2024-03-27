@@ -11,7 +11,7 @@ describe 'solr' do
         context 'solr class without optional parameters' do
           let(:params) do
             {
-              version: '9.0.0',
+              version: '9.4.1',
             }
           end
 
@@ -32,10 +32,10 @@ describe 'solr' do
           end
 
           it {
-            is_expected.to contain_archive('/opt/staging/solr-9.0.0.tgz').with(
+            is_expected.to contain_archive('/opt/staging/solr-9.4.1.tgz').with(
               extract_path: '/opt/staging',
-              source: 'https://dlcdn.apache.org/solr/solr/9.0.0/solr-9.0.0.tgz',
-              creates: '/opt/staging/solr-9.0.0',
+              source: 'https://dlcdn.apache.org/solr/solr/9.4.1/solr-9.4.1.tgz',
+              creates: '/opt/staging/solr-9.4.1',
             )
           }
           it {
@@ -47,10 +47,10 @@ describe 'solr' do
           }
           it {
             is_expected.to contain_exec('run solr install script').with(
-              command: '/opt/staging/solr-9.0.0/bin/install_solr_service.sh /opt/staging/solr-9.0.0.tgz -i /opt -d /var/solr -u solr -s solr -p 8983 -n ',
-              cwd: '/opt/staging/solr-9.0.0',
-              creates: '/opt/solr-9.0.0',
-            ).that_requires('Archive[/opt/staging/solr-9.0.0.tgz]')
+              command: '/opt/staging/solr-9.4.1/bin/install_solr_service.sh /opt/staging/solr-9.4.1.tgz -i /opt -d /var/solr -u solr -s solr -p 8983 -n ',
+              cwd: '/opt/staging/solr-9.4.1',
+              creates: '/opt/solr-9.4.1',
+            ).that_requires('Archive[/opt/staging/solr-9.4.1.tgz]')
           }
           it {
             is_expected.to contain_file('/var/solr').with(
@@ -82,7 +82,7 @@ describe 'solr' do
             is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{SOLR_PORT=8983})
           }
           it {
-            is_expected.to contain_file('/opt/solr-9.0.0/server/resources/log4j2.xml').with(
+            is_expected.to contain_file('/opt/solr-9.4.1/server/resources/log4j2.xml').with(
               ensure: 'file',
               mode: '0644',
               owner: 'solr',
@@ -115,7 +115,7 @@ describe 'solr' do
           let(:params) do
             {
               manage_service_limits: false,
-              version: '9.0.0',
+              version: '9.4.1',
             }
           end
 
@@ -130,7 +130,7 @@ describe 'solr' do
           let(:params) do
             {
               enable_prometheus_exporter: true,
-              version: '9.0.0',
+              version: '9.4.1',
             }
           end
 
@@ -181,7 +181,7 @@ describe 'solr' do
             {
               enable_prometheus_exporter: true,
               prometheus_exporter_env_vars: { 'JAVA_HEAP': '128m' },
-              version: '9.0.0',
+              version: '9.4.1',
             }
           end
 
