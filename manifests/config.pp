@@ -31,7 +31,14 @@ class solr::config {
       mode    => '0644',
       owner   => $solr::solr_user,
       group   => $solr::solr_user,
-      content => template("solr/${log4jconfig}.erb"),
+      content => epp("solr/${log4jconfig}.epp", {
+          'enable_syslog'   => $solr::enable_syslog,
+          'syslog_host'     => $solr::syslog_host,
+          'syslog_port'     => $solr::syslog_port,
+          'syslog_protocol' => $solr::syslog_protocol,
+          'syslog_app_name' => $solr::syslog_app_name,
+          'syslog_facility' => $solr::syslog_facility,
+      }),
       notify  => Service[$solr::service_name],
     }
     file { "${solr::var_dir}/${log4jconfig}":
@@ -39,7 +46,14 @@ class solr::config {
       mode    => '0644',
       owner   => $solr::solr_user,
       group   => $solr::solr_user,
-      content => template("solr/${log4jconfig}.erb"),
+      content => epp("solr/${log4jconfig}.epp", {
+          'enable_syslog'   => $solr::enable_syslog,
+          'syslog_host'     => $solr::syslog_host,
+          'syslog_port'     => $solr::syslog_port,
+          'syslog_protocol' => $solr::syslog_protocol,
+          'syslog_app_name' => $solr::syslog_app_name,
+          'syslog_facility' => $solr::syslog_facility,
+      }),
       notify  => Service[$solr::service_name],
     }
   }

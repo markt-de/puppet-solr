@@ -46,6 +46,12 @@ The following parameters are available in the `solr` class:
 * [`limit_file_max`](#limit_file_max)
 * [`limit_proc_max`](#limit_proc_max)
 * [`log_dir`](#log_dir)
+* [`enable_syslog`](#enable_syslog)
+* [`syslog_host`](#syslog_host)
+* [`syslog_port`](#syslog_port)
+* [`syslog_protocol`](#syslog_protocol)
+* [`syslog_app_name`](#syslog_app_name)
+* [`syslog_facility`](#syslog_facility)
 * [`manage_custom_plugins`](#manage_custom_plugins)
 * [`manage_service_limits`](#manage_service_limits)
 * [`mirror`](#mirror)
@@ -152,6 +158,42 @@ Sets the maximum number of processes.
 Data type: `Stdlib::Compat::Absolute_path`
 
 Sets the directory for Solr logs.
+
+##### <a name="enable_syslog"></a>`enable_syslog`
+
+Data type: `Boolean`
+
+Configure syslog appender instead of file.
+
+##### <a name="syslog_host"></a>`syslog_host`
+
+Data type: `String`
+
+Sets the destination host for syslog.
+
+##### <a name="syslog_port"></a>`syslog_port`
+
+Data type: `Integer`
+
+Sets the destination port for syslog.
+
+##### <a name="syslog_protocol"></a>`syslog_protocol`
+
+Data type: `String`
+
+Sets the protocol for syslog.
+
+##### <a name="syslog_app_name"></a>`syslog_app_name`
+
+Data type: `String`
+
+Sets the appName for syslog.
+
+##### <a name="syslog_facility"></a>`syslog_facility`
+
+Data type: `String`
+
+Sets the destination facility for syslog.
 
 ##### <a name="manage_custom_plugins"></a>`manage_custom_plugins`
 

@@ -5,6 +5,7 @@ solr::custom_plugins_dir: "%{lookup('solr::var_dir')}/libs"
 solr::custom_plugins_id: 'solr.custom_plugins.dir'
 solr::enable_prometheus_exporter: false
 solr::enable_remote_jmx: false
+solr::enable_syslog: false
 solr::extract_dir: '/opt'
 solr::gc_log_opts:
   - '-verbose:gc'
@@ -44,6 +45,11 @@ solr::solr_opts: ~
 solr::solr_port: 8983
 solr::solr_time: 'UTC'
 solr::solr_user: 'solr'
+solr::syslog_host: 'localhost'
+solr::syslog_port: 514
+solr::syslog_protocol: 'UDP'
+solr::syslog_app_name: 'solr'
+solr::syslog_facility: 'LOCAL0'
 solr::staging_dir: '/opt/staging'
 solr::upgrade: false
 solr::var_dir: '/var/solr'
