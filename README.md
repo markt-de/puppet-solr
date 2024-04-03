@@ -33,9 +33,9 @@ This module will install and configure the Solr search platform.
 
 ## Requirements
 
-* Puppet 6 or higher
-* Java 8 or higher (depending on the Solr version)
-* Tested with Solr 7, 8 and 9
+* Puppet 7 or higher
+* Java 11 or higher (depending on the Solr version)
+* Tested with Solr 8 and 9
 
 It is recommended to use [puppetlabs/java](https://forge.puppet.com/puppetlabs/java) to manage the Java installation.
 
