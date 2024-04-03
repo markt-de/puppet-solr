@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2024-04-03
+
+### Added
+- Add support for embedded prometheus exporter ([#10])
+- Add support for configuring a custom Syslog appender ([#11])
+- Add support for managing the allowPaths option
+
+### Changed
+- Manage the `which` package on RedHat-based systems
+- Switch tests to Solr 9.4.1
+- Improve test coverage
+- Update to PDK 3.0.1
+
+### Fixed
+- Java 17 not possible due to incompatible settings in `$gc_tune`
+
+### Removed
+- Remove obsolete GC options from `$gc_tune`
+- Drop support for EOL operating systems
+
 ## [3.2.0] - 2023-07-25
 
 ### Fixed
@@ -120,7 +140,8 @@ migrate from spacepants/puppet-solr to this version with only minor modification
 ### Removed
 - Remove unused parameter `$install_dir`
 
-[Unreleased]: https://github.com/markt-de/puppet-solr/compare/3.2.0...HEAD
+[Unreleased]: https://github.com/markt-de/puppet-solr/compare/4.0.0...HEAD
+[4.0.0]: https://github.com/markt-de/puppet-solr/compare/3.2.0...4.0.0
 [3.2.0]: https://github.com/markt-de/puppet-solr/compare/3.1.1...3.2.0
 [3.1.1]: https://github.com/markt-de/puppet-solr/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/markt-de/puppet-solr/compare/3.0.0...3.1.0
@@ -130,6 +151,8 @@ migrate from spacepants/puppet-solr to this version with only minor modification
 [2.1.0]: https://github.com/markt-de/puppet-solr/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/markt-de/puppet-solr/compare/1.0.0...2.0.0
 [#12]: https://github.com/markt-de/puppet-solr/pull/12
+[#11]: https://github.com/markt-de/puppet-solr/pull/11
+[#10]: https://github.com/markt-de/puppet-solr/pull/10
 [#8]: https://github.com/markt-de/puppet-solr/pull/8
 [#5]: https://github.com/markt-de/puppet-solr/pull/5
 [#4]: https://github.com/markt-de/puppet-solr/pull/4
