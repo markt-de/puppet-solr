@@ -58,12 +58,29 @@ class solr::config {
     }
   }
 
+  # When storing data outside the default paths, allowPaths must be used.
+  if $solr::manage_allow_paths {
+    # Add basic Solr paths.
+    $paths_tmp1 = [$solr::solr_home, $solr::var_dir]
+
+    # Merge with custom paths.
+    $paths_tmp2 = union($solr::allow_paths, $paths_tmp1)
+
+    # Generate a comma separated list.
+    $paths_tmp3 = join($paths_tmp2, ',')
+
+    # Add allowPaths to Solr options.
+    $solr_opts_tmp = union($solr::solr_opts, ["-Dsolr.allowPaths=${$paths_tmp3}"])
+  } else {
+    $solr_opts_tmp = $solr::solr_opts
+  }
+
   # When managing custom plugins, add the required startup option.
   if ($solr::manage_custom_plugins and !empty($solr::custom_plugins)) {
-    $solr_opts = union($solr::solr_opts, ["-D${solr::custom_plugins_id}=${solr::custom_plugins_dir}"])
+    $solr_opts = union($solr_opts_tmp, ["-D${solr::custom_plugins_id}=${solr::custom_plugins_dir}"])
   } else {
     # When not managing custom plugins, pass options unmodified.
-    $solr_opts = $solr::solr_opts
+    $solr_opts = $solr_opts_tmp
   }
 
   file { "${solr::var_dir}/solr.in.sh":

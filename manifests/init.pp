@@ -4,6 +4,9 @@
 # @param additional_packages
 #   Specifies a list of additional packages that are required for Solr or one of its components.
 #
+# @param allow_paths
+#   Specifies a list of directories that should be added to the allowPath Solr option.
+#
 # @param cloud
 #   Determines whether to enable Solr Cloud.
 #
@@ -48,6 +51,10 @@
 #
 # @param log_dir
 #   Sets the directory for Solr logs.
+#
+# @param manage_allow_paths
+#   Whether to add the allowPaths option to the Solr config. When storing data
+#   outside the default paths, allowPaths must be used.
 #
 # @param manage_additional_packages
 #   Whether to manage the installation of additional packages.
@@ -162,6 +169,8 @@ class solr (
   String $service_name,
   Stdlib::Absolutepath $solr_base,
   Array $additional_packages,
+  Array $allow_paths,
+  Boolean $manage_allow_paths,
   Boolean $manage_additional_packages,
   Boolean $manage_custom_plugins,
   Array $custom_plugins,
@@ -173,12 +182,12 @@ class solr (
   Integer $limit_proc_max,
   String $prometheus_exporter_service_name,
   String $prometheus_exporter_user,
+  Array $solr_opts,
   Optional[Hash] $prometheus_exporter_env_vars,
   Optional[String] $prometheus_exporter_extra_options,
   Optional[Array] $gc_log_opts,
   Optional[Array] $gc_tune,
   Optional[Stdlib::Absolutepath] $java_home,
-  Optional[Array] $solr_opts,
 ) {
   Class { 'solr::install': }
   -> Class { 'solr::config': }

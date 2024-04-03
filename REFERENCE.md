@@ -33,6 +33,7 @@ Installs and configures the Solr search platform.
 The following parameters are available in the `solr` class:
 
 * [`additional_packages`](#-solr--additional_packages)
+* [`allow_paths`](#-solr--allow_paths)
 * [`cloud`](#-solr--cloud)
 * [`custom_plugins`](#-solr--custom_plugins)
 * [`custom_plugins_dir`](#-solr--custom_plugins_dir)
@@ -48,6 +49,7 @@ The following parameters are available in the `solr` class:
 * [`limit_file_max`](#-solr--limit_file_max)
 * [`limit_proc_max`](#-solr--limit_proc_max)
 * [`log_dir`](#-solr--log_dir)
+* [`manage_allow_paths`](#-solr--manage_allow_paths)
 * [`manage_additional_packages`](#-solr--manage_additional_packages)
 * [`manage_custom_plugins`](#-solr--manage_custom_plugins)
 * [`manage_service_limits`](#-solr--manage_service_limits)
@@ -82,6 +84,12 @@ The following parameters are available in the `solr` class:
 Data type: `Array`
 
 Specifies a list of additional packages that are required for Solr or one of its components.
+
+##### <a name="-solr--allow_paths"></a>`allow_paths`
+
+Data type: `Array`
+
+Specifies a list of directories that should be added to the allowPath Solr option.
 
 ##### <a name="-solr--cloud"></a>`cloud`
 
@@ -173,6 +181,13 @@ Data type: `Stdlib::Absolutepath`
 
 Sets the directory for Solr logs.
 
+##### <a name="-solr--manage_allow_paths"></a>`manage_allow_paths`
+
+Data type: `Boolean`
+
+Whether to add the allowPaths option to the Solr config. When storing data
+outside the default paths, allowPaths must be used.
+
 ##### <a name="-solr--manage_additional_packages"></a>`manage_additional_packages`
 
 Data type: `Boolean`
@@ -248,7 +263,7 @@ Sets the hostname that should be used for Solr.
 
 ##### <a name="-solr--solr_opts"></a>`solr_opts`
 
-Data type: `Optional[Array]`
+Data type: `Array`
 
 Changes optional parameters to customize Solr's startup parameters.
 

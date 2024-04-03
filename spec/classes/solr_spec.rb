@@ -189,6 +189,32 @@ describe 'solr' do
 
           it { is_expected.to contain_systemd__unit_file('solr-exporter.service').with_content(%r{Environment="JAVA_HEAP=128m"}) }
         end
+
+        context 'solr class when manage_allow_paths is set to true' do
+          let(:params) do
+            {
+              manage_allow_paths: true,
+              allow_paths: [ '/tmp/CustomAllowPath' ],
+              version: '9.4.1',
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{-Dsolr.allowPaths=}) }
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{/tmp/CustomAllowPath}) }
+        end
+
+        context 'solr class when manage_allow_paths is set to false' do
+          let(:params) do
+            {
+              manage_allow_paths: false,
+              allow_paths: [ '/tmp/solrAllowPath' ],
+              version: '9.4.1',
+            }
+          end
+
+          it { is_expected.not_to contain_file('/var/solr/solr.in.sh').with_content(%r{-Dsolr.allowPaths=}) }
+          it { is_expected.not_to contain_file('/var/solr/solr.in.sh').with_content(%r{/tmp/CustomAllowPath}) }
+        end
       end
     end
   end
