@@ -215,6 +215,17 @@ describe 'solr' do
           it { is_expected.not_to contain_file('/var/solr/solr.in.sh').with_content(%r{-Dsolr.allowPaths=}) }
           it { is_expected.not_to contain_file('/var/solr/solr.in.sh').with_content(%r{/tmp/CustomAllowPath}) }
         end
+
+        context 'solr class when solr_opts is not empty' do
+          let(:params) do
+            {
+              solr_opts: ['-Duser.language=de'],
+              version: '9.4.1',
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{-Duser.language=de}) }
+        end
       end
     end
   end
