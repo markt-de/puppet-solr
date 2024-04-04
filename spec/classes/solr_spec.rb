@@ -247,6 +247,27 @@ describe 'solr' do
 
           it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{SOLR_JETTY_HOST="10.1.2.3"}) }
         end
+
+        context 'solr class when gc_tune is empty' do
+          let(:params) do
+            {
+              version: '9.4.1',
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').without_content(%r{GC_TUNE=}) }
+        end
+
+        context 'solr class when gc_tune is not empty' do
+          let(:params) do
+            {
+              gc_tune: ['-XX:+UseG1GC'],
+              version: '9.4.1',
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{GC_TUNE="-XX:\+UseG1GC"}) }
+        end
       end
     end
   end

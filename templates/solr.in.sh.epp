@@ -32,7 +32,7 @@ SOLR_JAVA_MEM="<%= $solr::java_mem %>"
 GC_LOG_OPTS="<%= $solr::gc_log_opts.join(' ') %>"
 <% } -%>
 
-<% if $solr::gc_tune {-%>
+<% if $solr::gc_tune and !empty($solr::gc_tune) {-%>
 # Enable custom GC settings
 GC_TUNE="<%= $solr::gc_tune.join(' ') %>"
 <% } -%>

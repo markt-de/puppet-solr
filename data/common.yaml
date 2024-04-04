@@ -12,15 +12,7 @@ solr::extract_dir: '/opt'
 solr::gc_log_opts:
   - '-verbose:gc'
   - '-Xlog:gc'
-solr::gc_tune:
-  - '-XX:NewRatio=3'
-  - '-XX:SurvivorRatio=4'
-  - '-XX:TargetSurvivorRatio=90'
-  - '-XX:MaxTenuringThreshold=8'
-  - '-XX:ConcGCThreads=4'
-  - '-XX:ParallelGCThreads=4'
-  - '-XX:PretenureSizeThreshold=64m'
-  - '-XX:+ParallelRefProcEnabled'
+solr::gc_tune: []
 solr::java_home: ~
 solr::java_mem: '-Xms512m -Xmx512m'
 solr::jetty_host: ~

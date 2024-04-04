@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Add new parameter `$jetty_host`
 
+### Changed
+- Remove all `$gc_tune` default values
+
 ## [4.0.0] - 2024-04-03
 
 ### Added
