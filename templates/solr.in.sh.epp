@@ -111,16 +111,88 @@ SOLR_LOGS_DIR=<%= $solr::log_dir %>
 # Sets the port Solr binds to, default is 8983
 SOLR_PORT=<%= $solr::solr_port %>
 
-# Uncomment to set SSL-related system properties
-# Be sure to update the paths to the correct keystore for your environment
-#SOLR_SSL_OPTS="-Djavax.net.ssl.keyStore=etc/solr-ssl.keystore.jks \
-#-Djavax.net.ssl.keyStorePassword=secret \
-#-Djavax.net.ssl.trustStore=etc/solr-ssl.keystore.jks \
-#-Djavax.net.ssl.trustStorePassword=secret"
-
-# Uncomment to set a specific SSL port (-Djetty.ssl.port=N); if not set
-# and you are using SSL, then the start script will use SOLR_PORT for the SSL port
-#SOLR_SSL_PORT=
 <% if $solr::cloud {-%>
 SOLR_MODE="solrcloud"
 <% } -%>
+
+# Restrict access to solr by IP address.
+# Specify a comma-separated list of addresses or networks, for example:
+#   127.0.0.1, 192.168.0.0/24, [::1], [2000:123:4:5::]/64
+#SOLR_IP_ALLOWLIST=
+
+# Block access to solr from specific IP addresses.
+# Specify a comma-separated list of addresses or networks, for example:
+#   127.0.0.1, 192.168.0.0/24, [::1], [2000:123:4:5::]/64
+#SOLR_IP_DENYLIST=
+
+# Sets the network interface the Solr binds to. To prevent administrators from
+# accidentally exposing Solr more widely than intended, this defaults to 127.0.0.1.
+# Administrators should think carefully about their deployment environment and
+# set this value as narrowly as required before going to production. In
+# environments where security is not a concern, 0.0.0.0 can be used to allow
+# Solr to accept connections on all network interfaces.
+<% if $solr::jetty_host {-%>
+SOLR_JETTY_HOST="<%= $solr::jetty_host %>"
+<% } else {-%>
+#SOLR_JETTY_HOST="127.0.0.1"
+<% } -%>
+# Sets the network interface the Embedded ZK binds to.
+#SOLR_ZK_EMBEDDED_HOST="127.0.0.1"
+
+# Enables HTTPS. It is implictly true if you set SOLR_SSL_KEY_STORE. Use this config
+# to enable https module with custom jetty configuration.
+#SOLR_SSL_ENABLED=true
+# Uncomment to set SSL-related system properties
+# Be sure to update the paths to the correct keystore for your environment
+#SOLR_SSL_KEY_STORE=etc/solr-ssl.keystore.p12
+#SOLR_SSL_KEY_STORE_PASSWORD=secret
+#SOLR_SSL_TRUST_STORE=etc/solr-ssl.keystore.p12
+#SOLR_SSL_TRUST_STORE_PASSWORD=secret
+# Require clients to authenticate
+#SOLR_SSL_NEED_CLIENT_AUTH=false
+# Enable clients to authenticate (but not require)
+#SOLR_SSL_WANT_CLIENT_AUTH=false
+# Verify client's hostname during SSL handshake
+#SOLR_SSL_CLIENT_HOSTNAME_VERIFICATION=false
+# SSL Certificates contain host/ip "peer name" information that is validated by default. Setting
+# this to false can be useful to disable these checks when re-using a certificate on many hosts.
+# This will also be used for the default value of whether SNI Host checking should be enabled.
+#SOLR_SSL_CHECK_PEER_NAME=true
+# Override Key/Trust Store types if necessary
+#SOLR_SSL_KEY_STORE_TYPE=PKCS12
+#SOLR_SSL_TRUST_STORE_TYPE=PKCS12
+
+# Uncomment if you want to override previously defined SSL values for HTTP client
+# otherwise keep them commented and the above values will automatically be set for HTTP clients
+#SOLR_SSL_CLIENT_KEY_STORE=
+#SOLR_SSL_CLIENT_KEY_STORE_PASSWORD=
+#SOLR_SSL_CLIENT_TRUST_STORE=
+#SOLR_SSL_CLIENT_TRUST_STORE_PASSWORD=
+#SOLR_SSL_CLIENT_KEY_STORE_TYPE=
+#SOLR_SSL_CLIENT_TRUST_STORE_TYPE=
+
+# Sets path of Hadoop credential provider (hadoop.security.credential.provider.path property) and
+# enables usage of credential store.
+# Credential provider should store the following keys:
+# * solr.jetty.keystore.password
+# * solr.jetty.truststore.password
+# Set the two below if you want to set specific store passwords for HTTP client
+# * javax.net.ssl.keyStorePassword
+# * javax.net.ssl.trustStorePassword
+# More info: https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/CredentialProviderAPI.html
+#SOLR_HADOOP_CREDENTIAL_PROVIDER_PATH=localjceks://file/home/solr/hadoop-credential-provider.jceks
+#SOLR_OPTS=" -Dsolr.ssl.credential.provider.chain=hadoop"
+
+# Settings for authentication
+# Please configure only one of SOLR_AUTHENTICATION_CLIENT_BUILDER or SOLR_AUTH_TYPE parameters
+#SOLR_AUTHENTICATION_CLIENT_BUILDER="org.apache.solr.client.solrj.impl.PreemptiveBasicAuthClientBuilderFactory"
+#SOLR_AUTH_TYPE="basic"
+#SOLR_AUTHENTICATION_OPTS="-Dbasicauth=solr:SolrRocks"
+
+# Settings for ZK ACL
+#SOLR_ZK_CREDS_AND_ACLS="-DzkACLProvider=org.apache.solr.common.cloud.DigestZkACLProvider \
+#  -DzkCredentialsProvider=org.apache.solr.common.cloud.DigestZkCredentialsProvider \
+#  -DzkCredentialsInjector=org.apache.solr.common.cloud.VMParamsZkCredentialsInjector \
+#  -DzkDigestUsername=admin-user -DzkDigestPassword=CHANGEME-ADMIN-PASSWORD \
+#  -DzkDigestReadonlyUsername=readonly-user -DzkDigestReadonlyPassword=CHANGEME-READONLY-PASSWORD"
+#SOLR_OPTS="$SOLR_OPTS $SOLR_ZK_CREDS_AND_ACLS"

@@ -23,6 +23,7 @@ solr::gc_tune:
   - '-XX:+ParallelRefProcEnabled'
 solr::java_home: ~
 solr::java_mem: '-Xms512m -Xmx512m'
+solr::jetty_host: ~
 solr::limit_file_max: 65000
 solr::limit_proc_max: 65000
 solr::log_dir: '/var/log/solr'

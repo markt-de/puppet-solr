@@ -226,6 +226,27 @@ describe 'solr' do
 
           it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{-Duser.language=de}) }
         end
+
+        context 'solr class when jetty_host is empty' do
+          let(:params) do
+            {
+              version: '9.4.1',
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{#SOLR_JETTY_HOST="127.0.0.1"}) }
+        end
+
+        context 'solr class when jetty_host is not empty' do
+          let(:params) do
+            {
+              jetty_host: '10.1.2.3',
+              version: '9.4.1',
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{SOLR_JETTY_HOST="10.1.2.3"}) }
+        end
       end
     end
   end

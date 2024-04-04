@@ -46,6 +46,7 @@ The following parameters are available in the `solr` class:
 * [`gc_tune`](#-solr--gc_tune)
 * [`java_home`](#-solr--java_home)
 * [`java_mem`](#-solr--java_mem)
+* [`jetty_host`](#-solr--jetty_host)
 * [`limit_file_max`](#-solr--limit_file_max)
 * [`limit_proc_max`](#-solr--limit_proc_max)
 * [`log_dir`](#-solr--log_dir)
@@ -162,6 +163,12 @@ Sets the path to a Java installation that should be used by Solr instead of the 
 Data type: `String`
 
 Sets JVM memory settings for Solr.
+
+##### <a name="-solr--jetty_host"></a>`jetty_host`
+
+Data type: `Optional[String]`
+
+Sets the IP address that Solr binds to.
 
 ##### <a name="-solr--limit_file_max"></a>`limit_file_max`
 

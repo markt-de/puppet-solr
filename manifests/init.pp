@@ -43,6 +43,9 @@
 # @param java_mem
 #   Sets JVM memory settings for Solr.
 #
+# @param jetty_host
+#   Sets the IP address that Solr binds to.
+#
 # @param limit_file_max
 #   Sets the maximum number of file descriptors.
 #
@@ -188,6 +191,7 @@ class solr (
   Optional[Array] $gc_log_opts,
   Optional[Array] $gc_tune,
   Optional[Stdlib::Absolutepath] $java_home,
+  Optional[String] $jetty_host,
 ) {
   Class { 'solr::install': }
   -> Class { 'solr::config': }
