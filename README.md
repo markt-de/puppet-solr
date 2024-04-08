@@ -119,7 +119,7 @@ class { 'solr':
     ...
     # Manage custom plugins
     manage_custom_plugins => true,
-    custom_plugin_id      => 'solr.custom_plugins.dir',
+    custom_plugins_id     => 'solr.custom_plugins.dir',
     custom_plugins        => [
       {
         source        => 'https://my.example.com/company_solr_plugins.tgz',
@@ -145,9 +145,9 @@ that is compatible with [voxpupuli/archive](https://github.com/voxpupuli/puppet-
 All custom plugins will automatically be installed and Solr will then be restarted.
 A new environment variable is added to Solr's startup options which points to the
 custom plugins directory. The name of this variable can be adjusted by altering the
-`$custom_plugin_id` parameter.
+`$custom_plugins_id` parameter.
 
-Note that you need to reference the `$custom_plugin_id` environment variable in
+Note that you need to reference the `$custom_plugins_id` environment variable in
 your configuration in order to actually load the custom plugins in your Solr Core:
 
 ```
