@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Add new parameter `$jetty_host`
+- Add new parameter `$enable_security_manager`
 
 ### Changed
 - Remove all `$gc_tune` default values

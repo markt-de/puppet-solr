@@ -196,3 +196,82 @@ SOLR_JETTY_HOST="<%= $solr::jetty_host %>"
 #  -DzkDigestUsername=admin-user -DzkDigestPassword=CHANGEME-ADMIN-PASSWORD \
 #  -DzkDigestReadonlyUsername=readonly-user -DzkDigestReadonlyPassword=CHANGEME-READONLY-PASSWORD"
 #SOLR_OPTS="$SOLR_OPTS $SOLR_ZK_CREDS_AND_ACLS"
+
+# optionally, you can use using a a Java properties file 'zkDigestCredentialsFile'
+#...
+#   -DzkDigestCredentialsFile=/path/to/zkDigestCredentialsFile.properties
+#...
+
+# Use a custom injector to inject ZK credentials into DigestZkACLProvider
+# -DzkCredentialsInjector expects a class implementing org.apache.solr.common.cloud.ZkCredentialsInjector
+# ...
+#   -DzkCredentialsInjector=fully.qualified.class.CustomInjectorClassName"
+# ...
+
+# Jetty GZIP module enabled by default
+#SOLR_GZIP_ENABLED=true
+
+# Settings for common system values that may cause operational imparement when system defaults are used.
+# Solr can use many processes and many file handles. On modern operating systems the savings by leaving
+# these settings low is minuscule, while the consequence can be Solr instability. To turn these checks off, set
+# SOLR_ULIMIT_CHECKS=false either here or as part of your profile.
+
+# Different limits can be set in solr.in.sh or your profile if you prefer as well.
+#SOLR_RECOMMENDED_OPEN_FILES=
+#SOLR_RECOMMENDED_MAX_PROCESSES=
+#SOLR_ULIMIT_CHECKS=
+
+# When running Solr in non-cloud mode and if planning to do distributed search (using the "shards" parameter), the
+# list of hosts needs to be defined in an allow-list or Solr will forbid the request. The allow-list can be configured
+# in solr.xml, or if you are using the OOTB solr.xml, can be specified using the system property "solr.allowUrls".
+# Alternatively host checking can be disabled by using the system property "solr.disable.allowUrls"
+#SOLR_OPTS="$SOLR_OPTS -Dsolr.allowUrls=http://localhost:8983,http://localhost:8984"
+
+# For a visual indication in the Admin UI of what type of environment this cluster is, configure
+# a -Dsolr.environment property below. Valid values are prod, stage, test, dev, with an optional
+# label or color, e.g. -Dsolr.environment=test,label=Functional+test,color=brown
+#SOLR_OPTS="$SOLR_OPTS -Dsolr.environment=prod"
+
+# Specifies the path to a common library directory that will be shared across all cores.
+# Any JAR files in this directory will be added to the search path for Solr plugins.
+# If the specified path is not absolute, it will be relative to `$SOLR_HOME`.
+#SOLR_OPTS="$SOLR_OPTS -Dsolr.sharedLib=/path/to/lib"
+
+# Runs solr in java security manager sandbox. This can protect against some attacks.
+# Runtime properties are passed to the security policy file (server/etc/security.policy)
+# You can also tweak via standard JDK files such as ~/.java.policy, see https://s.apache.org/java8policy
+# This is experimental! It may not work at all with Hadoop/HDFS features.
+SOLR_SECURITY_MANAGER_ENABLED=<%= $solr::enable_security_manager %>
+# This variable provides you with the option to disable the Admin UI. if you uncomment the variable below and
+# change the value to true. The option is configured as a system property as defined in SOLR_START_OPTS in the start
+# scripts.
+# SOLR_ADMIN_UI_DISABLED=false
+
+# Solr can attempt to take a heap dump on out of memory errors. To enable this, uncomment the line setting
+# SOLR_HEAP_DUMP below. Heap dumps will be saved to SOLR_LOG_DIR/dumps by default. Alternatively, you can specify any
+# other directory, which will implicitly enable heap dumping. Dump name pattern will be solr-[timestamp]-pid[###].hprof
+# When using this feature, it is recommended to have an external service monitoring the given dir.
+# If more fine grained control is required, you can manually add the appropriate flags to SOLR_OPTS
+# See https://docs.oracle.com/en/java/javase/11/troubleshoot/command-line-options1.html
+# You can test this behavior by setting SOLR_HEAP=25m
+#SOLR_HEAP_DUMP=true
+#SOLR_HEAP_DUMP_DIR=/var/log/dumps
+
+# Before version 9.0, Solr required a copy of solr.xml file in $SOLR_HOME. Now Solr will use a default file if not found.
+# To restore the old behavior, set the variable below to true
+#SOLR_SOLRXML_REQUIRED=false
+
+# Some previous versions of Solr use an outdated log4j dependency. If you are unable to use at least log4j version 2.15.0
+# then enable the following setting to address CVE-2021-44228
+# SOLR_OPTS="$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true"
+
+# The bundled plugins in the "modules" folder can easily be enabled as a comma-separated list in SOLR_MODULES variable
+# SOLR_MODULES=extraction,ltr
+
+# Configure the default replica placement plugin to use if one is not configured in cluster properties
+# See https://solr.apache.org/guide/solr/latest/configuration-guide/replica-placement-plugins.html for details
+#SOLR_PLACEMENTPLUGIN_DEFAULT=simple
+
+# Solr internally doesn't use cookies other than for modules such as Kerberos/Hadoop Auth. If you don't need any of those
+# And you don't need them for an external system (such as a load balancer), you can disable the use of a CookieStore with:
+# SOLR_OPTS="$SOLR_OPTS -Dsolr.http.disableCookies=true"

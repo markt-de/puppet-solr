@@ -40,6 +40,7 @@ The following parameters are available in the `solr` class:
 * [`custom_plugins_id`](#-solr--custom_plugins_id)
 * [`enable_prometheus_exporter`](#-solr--enable_prometheus_exporter)
 * [`enable_remote_jmx`](#-solr--enable_remote_jmx)
+* [`enable_security_manager`](#-solr--enable_security_manager)
 * [`enable_syslog`](#-solr--enable_syslog)
 * [`extract_dir`](#-solr--extract_dir)
 * [`gc_log_opts`](#-solr--gc_log_opts)
@@ -127,6 +128,13 @@ Determines whether to enable embedded prometheus exporter as a service.
 Data type: `Boolean`
 
 Determines whether to enable remote JMX support.
+
+##### <a name="-solr--enable_security_manager"></a>`enable_security_manager`
+
+Data type: `Boolean`
+
+Enable Java Security Manager. This affects filesystem access permissions and
+may require to provide a custom security policy.
 
 ##### <a name="-solr--enable_syslog"></a>`enable_syslog`
 

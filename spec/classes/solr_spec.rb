@@ -212,8 +212,8 @@ describe 'solr' do
             }
           end
 
-          it { is_expected.not_to contain_file('/var/solr/solr.in.sh').with_content(%r{-Dsolr.allowPaths=}) }
-          it { is_expected.not_to contain_file('/var/solr/solr.in.sh').with_content(%r{/tmp/CustomAllowPath}) }
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').without_content(%r{-Dsolr.allowPaths=}) }
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').without_content(%r{/tmp/CustomAllowPath}) }
         end
 
         context 'solr class when solr_opts is not empty' do
@@ -267,6 +267,28 @@ describe 'solr' do
           end
 
           it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{GC_TUNE="-XX:\+UseG1GC"}) }
+        end
+
+        context 'solr class when enable_security_manager is false' do
+          let(:params) do
+            {
+              version: '9.4.1',
+              enable_security_manager: false,
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{SOLR_SECURITY_MANAGER_ENABLED=false}) }
+        end
+
+        context 'solr class when enable_security_manager is true' do
+          let(:params) do
+            {
+              version: '9.4.1',
+              enable_security_manager: true,
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{SOLR_SECURITY_MANAGER_ENABLED=true}) }
         end
       end
     end

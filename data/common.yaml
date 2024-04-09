@@ -7,6 +7,7 @@ solr::custom_plugins_dir: "%{lookup('solr::var_dir')}/libs"
 solr::custom_plugins_id: 'solr.custom_plugins.dir'
 solr::enable_prometheus_exporter: false
 solr::enable_remote_jmx: false
+solr::enable_security_manager: true
 solr::enable_syslog: false
 solr::extract_dir: '/opt'
 solr::gc_log_opts:

@@ -25,6 +25,10 @@
 # @param enable_remote_jmx
 #   Determines whether to enable remote JMX support.
 #
+# @param enable_security_manager
+#   Enable Java Security Manager. This affects filesystem access permissions and
+#   may require to provide a custom security policy.
+#
 # @param enable_syslog
 #   Configure syslog appender instead of file.
 #
@@ -167,6 +171,7 @@ class solr (
   Integer $zk_timeout,
   String $solr_host,
   String $solr_time,
+  Boolean $enable_security_manager,
   Boolean $enable_prometheus_exporter,
   Boolean $enable_remote_jmx,
   String $service_name,
