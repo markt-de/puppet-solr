@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'solr::core', type: 'define' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
-      let :pre_condition do
+      let(:pre_condition) do
         "class {'solr': version => '9.0.0'}"
       end
 
