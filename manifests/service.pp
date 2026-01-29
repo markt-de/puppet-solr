@@ -9,13 +9,15 @@ class solr::service {
   if ($solr::manage_service_limits) {
     if ($facts['kernel'] == 'Linux') {
       # Configure systemd service limits.
-      systemd::service_limits { "${solr::service_name}.service":
-        limits          => {
+      systemd::manage_dropin { "${solr::service_name}.service-90-limits.conf":
+        filename       => '90-limits.conf',
+        unit           => "${solr::service_name}.service",
+        service_entry  => {
           'LimitNOFILE' => $solr::limit_file_max,
           'LimitNPROC'  => $solr::limit_proc_max,
           'TasksMax'    => $solr::limit_proc_max,
         },
-        restart_service => false,
+        notify_service => false,
       }
 
       # Additionally set limits for the Solr user.
