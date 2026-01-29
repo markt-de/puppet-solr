@@ -104,7 +104,7 @@ describe 'solr' do
             ).with_content(%r{SOLR_ENV="/var/solr/solr.in.sh"})
           }
 
-          it { is_expected.to contain_systemd__service_limits('solr.service') }
+          it { is_expected.to contain_systemd__manage_dropin('solr.service-90-limits.conf') }
           it { is_expected.to contain_limits__limits('solr/nofile') }
           it { is_expected.to contain_limits__limits('solr/nproc') }
 
@@ -121,7 +121,7 @@ describe 'solr' do
 
           it { is_expected.to compile.with_all_deps }
 
-          it { is_expected.not_to contain_systemd__service_limits('solr.service') }
+          it { is_expected.not_to contain_systemd__manage_dropin('solr.service-90-limits.conf') }
           it { is_expected.not_to contain_limits__limits('solr/nofile') }
           it { is_expected.not_to contain_limits__limits('solr/nproc') }
         end
