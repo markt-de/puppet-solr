@@ -163,7 +163,7 @@ migrate from spacepants/puppet-solr to this version with only minor modification
 - Remove unused parameter `$install_dir`
 
 [Unreleased]: https://github.com/markt-de/puppet-solr/compare/4.2.0...HEAD
-[4.1.0]: https://github.com/markt-de/puppet-solr/compare/4.1.0...4.2.0
+[4.2.0]: https://github.com/markt-de/puppet-solr/compare/4.1.0...4.2.0
 [4.1.0]: https://github.com/markt-de/puppet-solr/compare/4.0.0...4.1.0
 [4.0.0]: https://github.com/markt-de/puppet-solr/compare/3.2.0...4.0.0
 [3.2.0]: https://github.com/markt-de/puppet-solr/compare/3.1.1...3.2.0
