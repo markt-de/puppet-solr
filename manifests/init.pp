@@ -142,6 +142,9 @@
 # @param zk_chroot
 #   Sets the ZooKeeper chroot path when using Solr Cloud (see `$cloud`).
 #
+# @param zk_create_chroot
+#   Whether to create the ZooKeeper chroot path if it does not exist when using Solr Cloud (see `$cloud`).
+#
 # @param zk_ensemble
 #   Sets the host:port information for every machine that is part of the ZooKeeper ensemble when using Solr Cloud (see `$cloud`).
 #
@@ -168,6 +171,7 @@ class solr (
   Boolean $upgrade,
   Optional[String] $zk_ensemble,
   Optional[String] $zk_chroot,
+  Boolean $zk_create_chroot,
   Integer $zk_timeout,
   String $solr_host,
   String $solr_time,

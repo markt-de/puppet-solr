@@ -78,6 +78,7 @@ The following parameters are available in the `solr` class:
 * [`var_dir`](#-solr--var_dir)
 * [`version`](#-solr--version)
 * [`zk_chroot`](#-solr--zk_chroot)
+* [`zk_create_chroot`](#-solr--zk_create_chroot)
 * [`zk_ensemble`](#-solr--zk_ensemble)
 * [`zk_timeout`](#-solr--zk_timeout)
 
@@ -359,6 +360,12 @@ Sets the version of Solr that should be installed or the target version for an u
 Data type: `Optional[String]`
 
 Sets the ZooKeeper chroot path when using Solr Cloud (see `$cloud`).
+
+##### <a name="-solr--zk_create_chroot"></a>`zk_create_chroot`
+
+Data type: `Boolean`
+
+Whether to create the ZooKeeper chroot path if it does not exist when using Solr Cloud (see `$cloud`).
 
 ##### <a name="-solr--zk_ensemble"></a>`zk_ensemble`
 

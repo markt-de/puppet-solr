@@ -290,6 +290,20 @@ describe 'solr' do
 
           it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{SOLR_SECURITY_MANAGER_ENABLED=true}) }
         end
+
+        context 'solr class when zk_create_chroot is true' do
+          let(:params) do
+            {
+              version: '9.4.1',
+              zk_ensemble: 'zk1:2181,zk2:2181,zk3:2181',
+              zk_chroot: 'solr',
+              zk_create_chroot: true,
+            }
+          end
+
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{ZK_CREATE_CHROOT=true}) }
+          it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{ZK_HOST="zk1:2181,zk2:2181,zk3:2181/solr"}) }
+        end
       end
     end
   end

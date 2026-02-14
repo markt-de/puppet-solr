@@ -42,6 +42,7 @@ GC_TUNE="<%= $solr::gc_tune.join(' ') %>"
 # Leave empty if not using SolrCloud
 <% if $solr::zk_ensemble {-%>
 <% if $solr::zk_chroot {-%>
+ZK_CREATE_CHROOT=<%= $solr::zk_create_chroot %>
 ZK_HOST="<%= $solr::zk_ensemble %>/<%= $solr::zk_chroot %>"
 <% } else {-%>
 ZK_HOST="<%= $solr::zk_ensemble %>"

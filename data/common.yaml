@@ -24,7 +24,7 @@ solr::manage_additional_packages: true
 solr::manage_allow_paths: false
 solr::manage_custom_plugins: false
 solr::manage_service_limits: true
-solr::mirror: 'https://dlcdn.apache.org/solr/solr'
+solr::mirror: 'https://archive.apache.org/dist/solr/solr'
 solr::prometheus_exporter_env_vars: {}
 solr::prometheus_exporter_extra_options: ~
 solr::prometheus_exporter_user: "%{lookup('solr::solr_user')}"
@@ -47,5 +47,6 @@ solr::upgrade: false
 solr::var_dir: '/var/solr'
 solr::version: ~
 solr::zk_chroot: ~
+solr::zk_create_chroot: true
 solr::zk_ensemble: ~
 solr::zk_timeout: 15000
