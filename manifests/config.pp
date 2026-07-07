@@ -83,17 +83,36 @@ class solr::config {
     $solr_opts = $solr_opts_tmp
   }
 
-  file { "${solr::var_dir}/solr.in.sh":
+  # Solr 10 dropped the init.d startup script in favor of systemd, and the
+  # service installer now expects the include file (solr.in.sh) at
+  # /etc/default/<service>.in.sh (referenced via SOLR_INCLUDE in the unit).
+  # For older releases we keep the previous init.d based setup. The systemd
+  # unit itself is managed in solr::service (alongside the resource limits) to
+  # avoid a daemon-reload dependency cycle.
+  if versioncmp($solr::version, '10.0.0') >= 0 {
+    $solr_include = "/etc/default/${solr::service_name}.in.sh"
+
+    # Remove any leftover init.d script from a previous (pre-10) installation
+    # to avoid confusing the service installer and systemd.
+    file { "/etc/init.d/${solr::service_name}":
+      ensure => absent,
+    }
+  } else {
+    $solr_include = "${solr::var_dir}/solr.in.sh"
+
+    file { "/etc/init.d/${solr::service_name}":
+      ensure  => file,
+      mode    => '0744',
+      content => template('solr/solr.init.erb'),
+    }
+  }
+
+  file { $solr_include:
     ensure  => file,
     mode    => '0755',
     owner   => $solr::solr_user,
     group   => $solr::solr_user,
     content => epp('solr/solr.in.sh.epp'),
     notify  => Service[$solr::service_name],
-  }
-  file { "/etc/init.d/${solr::service_name}":
-    ensure  => file,
-    mode    => '0744',
-    content => template('solr/solr.init.erb'),
   }
 }
