@@ -339,6 +339,36 @@ describe 'solr' do
             is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{LOG4J_PROPS=/var/solr/log4j2.xml})
             is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{SOLR_LOGS_DIR=/var/log/solr})
           }
+
+          # Solr 10 ships a restructured log4j2.xml: RollingRandomAccessFile
+          # appenders and the renamed solr.logs.dir property.
+          it {
+            is_expected.to contain_file('/opt/solr-10.0.0/server/resources/log4j2.xml')
+              .with_content(%r{<RollingRandomAccessFile})
+              .with_content(%r{fileName="\$\{sys:solr.logs.dir\}/solr.log"})
+              .without_content(%r{sys:solr\.log\.dir})
+              .without_content(%r{<RollingFile})
+            is_expected.to contain_file('/var/solr/log4j2.xml')
+              .with_content(%r{fileName="\$\{sys:solr.logs.dir\}/solr.log"})
+          }
+        end
+
+        context 'solr class with Solr 10 and syslog enabled' do
+          let(:params) do
+            {
+              version: '10.0.0',
+              enable_syslog: true,
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          it {
+            is_expected.to contain_file('/var/solr/log4j2.xml')
+              .with_content(%r{<Syslog})
+              .with_content(%r{<AsyncRoot})
+              .with_content(%r{<AppenderRef ref="Syslog"/>})
+          }
         end
 
         context 'solr class with Solr 10 in cloud mode' do
