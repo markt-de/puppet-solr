@@ -7,7 +7,7 @@ describe 'solr class' do
     apply_manifest(%(
       # Tests will fail if `ss` is not installed.
       if ($facts['os']['family'] == 'RedHat') and (versioncmp($facts['os']['release']['major'], '8') >= 0) {
-        ensure_packages('iproute')
+        stdlib::ensure_packages('iproute')
       }
 
       if ($facts['os']['family'] == 'Debian') {
