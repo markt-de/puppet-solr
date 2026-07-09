@@ -79,6 +79,10 @@
 # @param service_name
 #   Sets the name of the system service that should be setup.
 #
+# @param service_private_tmp
+#   Determines whether to set PrivateTmp=true in the systemd service (Solr 10
+#   and newer). This isolates the service's /tmp. Enabled by default.
+#
 # @param prometheus_exporter_user
 #   Sets the user running the solr-exporter binary.
 #
@@ -175,6 +179,7 @@ class solr (
   Boolean $enable_prometheus_exporter,
   Boolean $enable_remote_jmx,
   String $service_name,
+  Boolean $service_private_tmp,
   Stdlib::Absolutepath $solr_base,
   Array $additional_packages,
   Array $allow_paths,

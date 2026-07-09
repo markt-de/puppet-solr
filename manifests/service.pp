@@ -49,6 +49,7 @@ class solr::service {
           'solr_user'    => $solr::solr_user,
           'solr_include' => $solr::config::solr_include,
           'exec_start'   => $exec_start,
+          'private_tmp'  => $solr::service_private_tmp,
       }),
       notify  => Service[$solr::service_name],
     }

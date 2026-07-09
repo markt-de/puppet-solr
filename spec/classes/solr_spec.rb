@@ -314,6 +314,8 @@ describe 'solr' do
               .with_content(%r{ExecStop=/opt/solr/bin/solr stop})
               .with_content(%r{Environment=SOLR_INCLUDE=/etc/default/solr.in.sh})
               .with_content(%r{User=solr})
+              # PrivateTmp is enabled by default.
+              .with_content(%r{PrivateTmp=true})
           }
           it { is_expected.to contain_file('/etc/init.d/solr').with_ensure('absent') }
           it {
@@ -351,6 +353,18 @@ describe 'solr' do
             is_expected.to contain_file('/var/solr/log4j2.xml')
               .with_content(%r{fileName="\$\{sys:solr.logs.dir\}/solr.log"})
           }
+        end
+
+        context 'solr class with Solr 10 and service_private_tmp disabled' do
+          let(:params) do
+            {
+              version: '10.0.0',
+              service_private_tmp: false,
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_systemd__unit_file('solr.service').without_content(%r{PrivateTmp}) }
         end
 
         context 'solr class with Solr 10 and syslog enabled' do

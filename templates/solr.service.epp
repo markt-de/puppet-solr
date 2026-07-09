@@ -1,7 +1,8 @@
-<%- | String $solr_base,
-      String $solr_user,
-      String $solr_include,
-      String $exec_start,
+<%- | String  $solr_base,
+      String  $solr_user,
+      String  $solr_include,
+      String  $exec_start,
+      Boolean $private_tmp,
 | -%>
 # THIS FILE IS MANAGED BY PUPPET
 #
@@ -24,7 +25,9 @@ ExecStop=<%= $solr_base %>/bin/solr stop
 Restart=on-failure
 RestartSec=3s
 TimeoutSec=180s
+<% if $private_tmp { -%>
 PrivateTmp=true
+<% } -%>
 
 [Install]
 WantedBy=multi-user.target
