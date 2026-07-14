@@ -290,6 +290,143 @@ describe 'solr' do
 
           it { is_expected.to contain_file('/var/solr/solr.in.sh').with_content(%r{SOLR_SECURITY_MANAGER_ENABLED=true}) }
         end
+
+        context 'solr class with Solr 10 (standalone)' do
+          let(:params) do
+            {
+              version: '10.0.0',
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          it {
+            is_expected.to contain_archive('/opt/staging/solr-10.0.0.tgz').with(
+              source: 'https://dlcdn.apache.org/solr/solr/10.0.0/solr-10.0.0.tgz',
+            )
+          }
+
+          # Solr 10 is managed via systemd, not init.d.
+          it { is_expected.to contain_systemd__unit_file('solr.service').that_notifies('Service[solr]') }
+          it {
+            is_expected.to contain_systemd__unit_file('solr.service')
+              .with_content(%r{ExecStart=/opt/solr/bin/solr start --user-managed})
+              .with_content(%r{ExecStop=/opt/solr/bin/solr stop})
+              .with_content(%r{Environment=SOLR_INCLUDE=/etc/default/solr.in.sh})
+              .with_content(%r{User=solr})
+              # PrivateTmp is enabled by default.
+              .with_content(%r{PrivateTmp=true})
+          }
+          it { is_expected.to contain_file('/etc/init.d/solr').with_ensure('absent') }
+          it {
+            is_expected.to contain_service('solr').with(
+              ensure: 'running',
+              enable: true,
+              provider: 'systemd',
+            )
+          }
+
+          # The include file moves to /etc/default and uses the renamed vars.
+          it { is_expected.not_to contain_file('/var/solr/solr.in.sh') }
+          it {
+            is_expected.to contain_file('/etc/default/solr.in.sh').with(
+              ensure: 'file',
+              owner: 'solr',
+              group: 'solr',
+            )
+            is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{SOLR_PORT_LISTEN=8983})
+            is_expected.to contain_file('/etc/default/solr.in.sh').without_content(%r{SOLR_PORT=8983})
+            is_expected.to contain_file('/etc/default/solr.in.sh').without_content(%r{SOLR_MODE=})
+            is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{SOLR_HOME=/var/solr/data})
+            is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{LOG4J_PROPS=/var/solr/log4j2.xml})
+            is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{SOLR_LOGS_DIR=/var/log/solr})
+          }
+
+          # Solr 10 ships a restructured log4j2.xml: RollingRandomAccessFile
+          # appenders and the renamed solr.logs.dir property.
+          it {
+            is_expected.to contain_file('/opt/solr-10.0.0/server/resources/log4j2.xml')
+              .with_content(%r{<RollingRandomAccessFile})
+              .with_content(%r{fileName="\$\{sys:solr.logs.dir\}/solr.log"})
+              .without_content(%r{sys:solr\.log\.dir})
+              .without_content(%r{<RollingFile})
+            is_expected.to contain_file('/var/solr/log4j2.xml')
+              .with_content(%r{fileName="\$\{sys:solr.logs.dir\}/solr.log"})
+          }
+        end
+
+        context 'solr class with Solr 10 and service_private_tmp disabled' do
+          let(:params) do
+            {
+              version: '10.0.0',
+              service_private_tmp: false,
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_systemd__unit_file('solr.service').without_content(%r{PrivateTmp}) }
+        end
+
+        context 'solr class with Solr 10 and syslog enabled' do
+          let(:params) do
+            {
+              version: '10.0.0',
+              enable_syslog: true,
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          it {
+            is_expected.to contain_file('/var/solr/log4j2.xml')
+              .with_content(%r{<Syslog})
+              .with_content(%r{<AsyncRoot})
+              .with_content(%r{<AppenderRef ref="Syslog"/>})
+          }
+        end
+
+        context 'solr class with Solr 10 in cloud mode' do
+          let(:params) do
+            {
+              version: '10.0.0',
+              cloud: true,
+              zk_ensemble: 'zk1:2181,zk2:2181',
+            }
+          end
+
+          it { is_expected.to compile.with_all_deps }
+
+          # In cloud mode SolrCloud is the (upstream) default, so no
+          # --user-managed switch is added.
+          it { is_expected.to contain_systemd__unit_file('solr.service').with_content(%r{ExecStart=/opt/solr/bin/solr start$}) }
+          it { is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{ZK_HOST="zk1:2181,zk2:2181"}) }
+        end
+
+        context 'solr class with Solr 10 uses the renamed host env vars' do
+          let(:params) do
+            {
+              version: '10.0.0',
+              solr_host: 'solr.example.com',
+              jetty_host: '10.1.2.3',
+            }
+          end
+
+          it { is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{SOLR_HOST_ADVERTISE="solr.example.com"}) }
+          it { is_expected.to contain_file('/etc/default/solr.in.sh').with_content(%r{SOLR_HOST_BIND="10.1.2.3"}) }
+          it { is_expected.to contain_file('/etc/default/solr.in.sh').without_content(%r{SOLR_JETTY_HOST=}) }
+          it { is_expected.to contain_file('/etc/default/solr.in.sh').without_content(%r{^SOLR_HOST=}) }
+        end
+
+        context 'solr class fails when enable_prometheus_exporter is set to true with Solr 10' do
+          let(:params) do
+            {
+              version: '10.0.0',
+              enable_prometheus_exporter: true,
+            }
+          end
+
+          it { is_expected.to compile.and_raise_error(%r{embedded Prometheus exporter was removed in Solr 10}) }
+        end
       end
     end
   end

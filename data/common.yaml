@@ -30,6 +30,7 @@ solr::prometheus_exporter_extra_options: ~
 solr::prometheus_exporter_user: "%{lookup('solr::solr_user')}"
 solr::prometheus_exporter_service_name: 'solr-exporter'
 solr::service_name: 'solr'
+solr::service_private_tmp: true
 solr::solr_base: "%{lookup('solr::extract_dir')}/%{lookup('solr::service_name')}"
 solr::solr_home: "%{lookup('solr::var_dir')}/data"
 solr::solr_host: "%{facts.networking.fqdn}"

@@ -6,7 +6,9 @@ class solr::prometheus_exporter {
   assert_private()
 
   $solr_dir = "${solr::extract_dir}/${solr::service_name}"
-  if versioncmp($solr::version, '9.0.0') >= 0 {
+  if versioncmp($solr::version, '10.0.0') >= 0 {
+    fail('The embedded Prometheus exporter was removed in Solr 10. Scrape the native /admin/metrics endpoint (wt=prometheus) or use the opentelemetry module instead.')
+  } elsif versioncmp($solr::version, '9.0.0') >= 0 {
     $exporter_dir = "${solr_dir}/prometheus-exporter"
   } elsif versioncmp($solr::version, '7.3.0') >= 0 {
     $exporter_dir = "${solr_dir}/contrib/prometheus-exporter"

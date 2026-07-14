@@ -34,10 +34,30 @@ This module will install and configure the Solr search platform.
 ## Requirements
 
 * Puppet 8 or higher
-* Java 11 or higher (depending on the Solr version)
-* Tested with Solr 8 and 9
+* Java (depending on the Solr version):
+    * Solr 8 and 9: Java 11 or higher
+    * Solr 10: Java 21 or higher
+* Tested with Solr 8, 9 and 10
 
 It is recommended to use [puppetlabs/java](https://forge.puppet.com/puppetlabs/java) to manage the Java installation.
+
+### Solr 10
+
+Starting with Solr 10 the service installer manages Solr via `systemd` instead
+of `init.d`, so a system with `systemd` is required. This module reflects the
+following upstream changes automatically (based on the configured `$version`):
+
+* The service is managed via a `systemd` unit instead of an init.d script.
+* The `solr.in.sh` include file is placed at `/etc/default/<service>.in.sh`.
+* SolrCloud is the default startup mode. When `$cloud` is `false` (the default)
+  the service is started in standalone (user-managed) mode via `--user-managed`.
+* The renamed environment variables are used: `SOLR_HOST_ADVERTISE` (was
+  `SOLR_HOST`), `SOLR_HOST_BIND` (was `SOLR_JETTY_HOST`) and `SOLR_PORT_LISTEN`
+  (was `SOLR_PORT`).
+* The embedded Prometheus exporter has been removed upstream, so
+  `$enable_prometheus_exporter` is not supported with Solr 10. Scrape the
+  native `/admin/metrics` endpoint (`wt=prometheus`) or use the OpenTelemetry
+  module instead.
 
 ## Usage
 

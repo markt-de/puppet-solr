@@ -1,4 +1,5 @@
 ## MANAGED BY PUPPET
+<%- $solr10 = versioncmp($solr::version, '10.0.0') >= 0 -%>
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -59,10 +60,18 @@ ZK_CLIENT_TIMEOUT="<%= $solr::zk_timeout %>"
 
 # By default the start script uses "localhost"; override the hostname here
 # for production SolrCloud environments to control the hostname exposed to cluster state
+<% if $solr10 {-%>
+<% if $solr::solr_host {-%>
+SOLR_HOST_ADVERTISE="<%= $solr::solr_host %>"
+<% } else {-%>
+#SOLR_HOST_ADVERTISE="192.168.1.1"
+<% } -%>
+<% } else {-%>
 <% if $solr::solr_host {-%>
 SOLR_HOST="<%= $solr::solr_host %>"
 <% } else {-%>
 #SOLR_HOST="192.168.1.1"
+<% } -%>
 <% } -%>
 
 # By default the start script uses UTC; override the timezone if needed
@@ -109,9 +118,16 @@ LOG4J_PROPS=<%= $solr::var_dir %>/<%= $solr::config::log4jconfig %>
 SOLR_LOGS_DIR=<%= $solr::log_dir %>
 
 # Sets the port Solr binds to, default is 8983
+<% if $solr10 {-%>
+SOLR_PORT_LISTEN=<%= $solr::solr_port %>
+<% } else {-%>
 SOLR_PORT=<%= $solr::solr_port %>
+<% } -%>
 
-<% if $solr::cloud {-%>
+<% if $solr::cloud and !$solr10 {-%>
+# In Solr < 10 SolrCloud mode is enabled via SOLR_MODE. From Solr 10 onwards
+# SolrCloud is the default and standalone mode is selected via the
+# "--user-managed" flag in the systemd unit (see solr.service.epp).
 SOLR_MODE="solrcloud"
 <% } -%>
 
@@ -131,10 +147,18 @@ SOLR_MODE="solrcloud"
 # set this value as narrowly as required before going to production. In
 # environments where security is not a concern, 0.0.0.0 can be used to allow
 # Solr to accept connections on all network interfaces.
+<% if $solr10 {-%>
+<% if $solr::jetty_host {-%>
+SOLR_HOST_BIND="<%= $solr::jetty_host %>"
+<% } else {-%>
+#SOLR_HOST_BIND="127.0.0.1"
+<% } -%>
+<% } else {-%>
 <% if $solr::jetty_host {-%>
 SOLR_JETTY_HOST="<%= $solr::jetty_host %>"
 <% } else {-%>
 #SOLR_JETTY_HOST="127.0.0.1"
+<% } -%>
 <% } -%>
 # Sets the network interface the Embedded ZK binds to.
 #SOLR_ZK_EMBEDDED_HOST="127.0.0.1"
